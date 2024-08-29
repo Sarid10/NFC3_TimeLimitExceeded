@@ -12,9 +12,8 @@ const AlumniList = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        axios.get("http://localhost:3000/auth/alumni_list")
+        axios.get("http://localhost:3000/auth/unique_donors_list")
             .then((res) => {
-
                 console.log(res.data);
                 setAlumniList(res.data);
             })
@@ -29,9 +28,9 @@ const AlumniList = () => {
     useEffect(() => {
         if (alumniList.length > 0) {
             const filteredlist = alumniList.filter(list =>
-                list.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                list.course.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                list.batch.toString().includes(searchQuery)
+                list.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+                // || list.course.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                // list.batch.toString().includes(searchQuery)
             );
             setFilteredAlumnni(filteredlist);
         }
@@ -43,7 +42,7 @@ const AlumniList = () => {
                 <div className="container-fluid h-100">
                     <div className="row h-100 align-items-center justify-content-center text-center">
                         <div className="col-lg-8 align-self-end mb-4 page-title">
-                            <h3 className="text-white">Alumnus/Alumnae List</h3>
+                            <h3 className="text-white">Donors List</h3>
                             <hr className="divider my-4" />
                         </div>
                     </div>
@@ -65,7 +64,7 @@ const AlumniList = () => {
                                         type="text"
                                         className="form-control"
                                         id="filter"
-                                        placeholder="Filter name, course, batch"
+                                        placeholder="Filter name"
                                         aria-label="Filter"
                                         aria-describedby="filter-field"
                                     />
@@ -111,23 +110,23 @@ const AlumniList = () => {
                                         <p className="card-text h5">
                                             <strong>Email:</strong> {a.email}
                                         </p>
-                                        {a.course && <p className="card-text h5">
-                                            <strong>Course:</strong> {a.course}
-                                        </p>}
-                                        {a.batch != "0000" && <p className="card-text h5">
+                                        <p className="card-text h5">
+                                            <strong>Amount Donated:</strong> {a.total_amount_donated}
+                                        </p>
+                                        {/* {a.batch != "0000" && <p className="card-text h5">
                                             <strong>Batch:</strong> {a.batch}
                                         </p>}
                                         {a.connected_to && <p className="card-text h5">
                                             <strong>Currently working in/as:</strong> {a.connected_to}
-                                        </p>}
+                                        </p>} */}
 
-                                        <h5 className="card-title text-center pad-zero h3">
+                                        <h5 className="card-title text-left pad-zero h3">
                                             <small>
-                                                <a href={`http://github.com/${a.name}`} target="_blank" style={{ color: "inherit" }}>
+                                                {/* <a href={`http://github.com/${a.name}`} target="_blank" style={{ color: "inherit" }}>
                                                     <i style={{ marginRight: "30px"}}>
                                                         <FaGithub />
                                                     </i>
-                                                </a>
+                                                </a> */}
                                                 <a href={`http://linkedin.com/${a.name}`} target="_blank" style={{ color: "inherit" }}>
                                                     <i style={{ marginLeft: "30px" }}>
                                                         <FaLinkedin />

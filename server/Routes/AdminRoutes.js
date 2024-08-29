@@ -298,6 +298,21 @@ router.get("/jobs", (req, res) => {
   });
 });
 
+router.get("/unique_donors_list", (req, res) => {
+  const sql = `SELECT u.id, u.name, u.email, SUM(d.amount_donated) AS total_amount_donated
+    FROM donors d
+    JOIN users u ON d.user_id = u.id
+    GROUP BY u.id, u.name;
+  `;
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "Query Error" });
+    }
+    res.json(result);
+  });
+});
+
 router.get("/donations", (req, res) => {
   const sql = `
     SELECT donations.*, users.name
