@@ -156,67 +156,7 @@ import "./home.css";
         </div>
       </section>
 
-      <section className={`py-4 bg-${theme}`} id="upcoming-events">
-        <div className="container">
-          <h2 className="section-heading text-center">Upcoming Drives</h2>
-          <hr className="divider my-4" />
-          {events.length > 0 ? (
-            events.map((e, index) => (
-              <div className="card event-list d-flex" key={index}>
-                <div className="banner">
-                  {/* Replace with actual image URL if needed */}
-                  <img
-                    src={e.image || "https://via.placeholder.com/150"}
-                    alt={e.title}
-                    className="event-image"
-                  />
-                </div>
-                <div className="card-body event-description">
-                  <div>
-                    <h3>
-                      <b className="filter-txt">{e.title}</b>
-                    </h3>
-                    <div>
-                      <small>
-                        <p>
-                          <b>
-                            <FaCalendar className="me-1" />
-                            {formatDate(e.schedule)}
-                          </b>
-                        </p>
-                      </small>
-                    </div>
-                    <hr />
-                    <p
-                      className="truncate filter-txt"
-                      dangerouslySetInnerHTML={{ __html: e.content }}
-                    ></p>
-                    <br />
-                    <hr className="divider" style={{ maxWidth: "80%" }} />
-                    <button
-                      className="btn btn-primary float-end read_more"
-                      onClick={() =>
-                        navigate("events/view", {
-                          state: { action: "view", data: e },
-                        })
-                      }
-                    >
-                      Read More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <h4 className="text-info-emphasis">
-                No Upcoming Drives Available
-              </h4>
-            </div>
-          )}
-        </div>
-      </section>
-
+    
       
       <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
