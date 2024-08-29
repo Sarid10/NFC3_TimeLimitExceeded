@@ -128,7 +128,7 @@ router.post("/donordetails", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { name, email, password, userType, course_id } = req.body;
+  const { name, email, password, userType, phone } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -158,7 +158,7 @@ router.post("/signup", async (req, res) => {
 
               const alumnusId = alumnusResult.insertId;
               const userSql =
-                "INSERT INTO users(name, email, password, type, alumnus_id) VALUES(?,?,?,?,?)";
+                "INSERT INTO users(name, email, password, type, phone) VALUES(?,?,?,?,?)";
               con.query(
                 userSql,
                 [name, email, hashedPassword, userType, alumnusId],
@@ -183,10 +183,10 @@ router.post("/signup", async (req, res) => {
           );
         } else {
           const sql =
-            "INSERT INTO users(name, email, password, type) VALUES(?,?,?,?)";
+            "INSERT INTO users(name, email, password, type,phone) VALUES(?,?,?,?,?)";
           con.query(
             sql,
-            [name, email, hashedPassword, userType],
+            [name, email, hashedPassword, userType, phone],
             (err, result) => {
               if (err) {
                 console.error("Error executing SQL query for users:", err);
