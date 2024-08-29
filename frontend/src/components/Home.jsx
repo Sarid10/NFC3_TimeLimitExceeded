@@ -1,60 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import { FiBook, FiUsers, FiClipboard, FiTool } from "react-icons/fi";
-import { FaCalendar } from "react-icons/fa";
-import { useAuth } from "../AuthContext";
-import { useTheme } from "../ThemeContext";
-import carousel1 from "../assets/uploads/carousel1.jpg";
-import carousel2 from "../assets/uploads/carousel2.jpg";
-import carousel3 from "../assets/uploads/carousel3.jpg";
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { FiBook, FiUsers, FiClipboard, FiTool } from 'react-icons/fi'
+import { FaCalendar } from 'react-icons/fa'
+import { useAuth } from '../AuthContext'
+import { useTheme } from '../ThemeContext'
+import carousel1 from '../assets/img/ngo_1.jpg'
+import carousel2 from '../assets/img/ngo_2.jpg'
+import carousel3 from '../assets/img/ngo_3.jpg'
 
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import './home.css'
 
-import "./home.css";
-
-  const Home = () => {
-  const { theme } = useTheme();
-  const { isLoggedIn } = useAuth();
-  const [events, setEvents] = useState([]);
-  const location = useLocation();
-  const navigate = useNavigate();
+const Home = () => {
+  const { theme } = useTheme()
+  const { isLoggedIn } = useAuth()
+  const [events, setEvents] = useState([])
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isLoggedIn) {
-      const user_name = localStorage.getItem("user_name");
-      if (location.state && location.state.action === "homelogin") {
-        toast.success(`Welcome ${user_name}`);
+      const user_name = localStorage.getItem('user_name')
+      if (location.state && location.state.action === 'homelogin') {
+        toast.success(`Welcome ${user_name}`)
       }
     }
-    if (location.state && location.state.action === "homelogout") {
-      toast.info("Logout Success");
+    if (location.state && location.state.action === 'homelogout') {
+      toast.info('Logout Success')
     }
-  }, [location.state, isLoggedIn]);
+  }, [location.state, isLoggedIn])
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/auth/up_events")
+      .get('http://localhost:3000/auth/up_events')
       .then((res) => {
-        setEvents(res.data);
+        setEvents(res.data)
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err))
+  }, [])
 
   const formatDate = (timestamp) => {
     const options = {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    };
-    return new Date(timestamp).toLocaleDateString("en-US", options);
-  };
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }
+    return new Date(timestamp).toLocaleDateString('en-US', options)
+  }
 
   const sliderSettings = {
     dots: true,
@@ -65,7 +64,7 @@ import "./home.css";
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
-  };
+  }
 
   return (
     <div>
@@ -80,20 +79,17 @@ import "./home.css";
       <section className="carousel-section">
         <Slider {...sliderSettings}>
           <div>
-            <img
-              src={carousel1}
-              alt="Event 1"
-            />
+            <img src={carousel1} alt="Event 1" />
           </div>
           <div>
             <img
-              src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/03/06/Pictures/september-ludhiana-phullanwal-october-government-students-ludhiana_48ec1af8-0254-11e7-a2a9-8cc6a4d5973b.jpg"
+              src={carousel2}
               alt="Event 2"
             />
           </div>
           <div>
             <img
-              src="https://images.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/08/09/Pictures/women-village-budhpura-bundi-groups-district-meeting_128cd040-da39-11ea-a162-aa5ffaaa8aa4.jpg"
+              src={carousel3}
               alt="Event 3"
             />
           </div>
@@ -157,15 +153,13 @@ import "./home.css";
         </div>
       </section>
 
-    
-      
       <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Drives</h2>
           <hr className="divider my-4" />
 
           {/* Community Health Check-up */}
-          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
+          <div className="card mb-3 mx-auto" style={{ maxWidth: '720px' }}>
             <div className="row g-0">
               <div className="col-md-4">
                 <img
@@ -199,9 +193,8 @@ import "./home.css";
             </div>
           </div>
 
-
           {/* Beach Cleaning */}
-          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px"}}>
+          <div className="card mb-3 mx-auto" style={{ maxWidth: '720px' }}>
             <div className="row g-0">
               <div className="col-md-4">
                 <img
@@ -231,7 +224,7 @@ import "./home.css";
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
