@@ -41,7 +41,7 @@ const SidebarPM = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Projects Assigned</span>
           </Link>
         </li>
-        {/* <li onClick={toggleSidebar} className="nav-item">
+        <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/courses")}`}
             to={"/dashboard/courses"}
@@ -62,15 +62,6 @@ const SidebarPM = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/jobs")}`}
-            to={"/dashboard/jobs"}
-          >
-            <RiSuitcaseFill />
-            <span className="ms-1">Jobs</span>
-          </Link>
-        </li> */}
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
             className={`nav-link ${isActive("/dashboard/donations")}`}
             to={"/dashboard/donations"}
           >
@@ -80,11 +71,11 @@ const SidebarPM = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/events")}`}
-            to={"/dashboard/events"}
+            className={`nav-link ${isActive("/dashboard/reports")}`}
+            to={"/dashboard/reports"}
           >
             <IoCalendar />
-            <span className="ms-1">Events</span>
+            <span className="ms-1">Report</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">

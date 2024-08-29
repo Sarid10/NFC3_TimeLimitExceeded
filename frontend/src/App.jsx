@@ -46,6 +46,8 @@ import PMAssigned from "./PM/PMAssigned";
 import ViewProject from "./PM/ViewProject";
 import SmallDonatePage from "./components/SmallDonate";
 import OrganizationForm from "./components/OrganizationForm";
+import PMReport from "./PM/PMReport";
+import PMlist from "./PM/PMList";
 
 function App() {
   return (
@@ -90,21 +92,26 @@ function AppRouter() {
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
             <Route path="/dashboard/settings" element={<AdminSettings />} />
-            <Route path="/dashboard/events" element={<AdminEvents />} />
+            <Route path="/dashboard/reports" element={<AdminEvents />} />
             <Route path="/dashboard/forum" element={<AdminForum />} />
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
+            {/* <Route path="/dashboard/reports" element={<PMlist />} /> */}
             <Route path="/dashboard/donations" element={<AdminDonations />} />
             <Route
               path="/dashboard/donations/:id"
               element={<DonationDetail />}
             />
             <Route path="/dashboard/jobs/manage" element={<ManageJobs />} />
+            <Route path="/dashboard/reports/manage " element={<PMReport />} />
             <Route
               path="/dashboard/donations/manage"
               element={<ManageDonations />}
             />
-            <Route path="/dashboard/events/manage" element={<ManageEvents />} />
+            <Route
+              path="/dashboard/reports/manage"
+              element={<ManageEvents />}
+            />
             <Route path="/dashboard/forum/manage" element={<ManageForum />} />
             <Route path="/dashboard/users/manage" element={<ManageUser />} />
             <Route path="/dashboard/alumni/view" element={<ViewAlumni />} />

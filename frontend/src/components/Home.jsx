@@ -15,7 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 // CSS import
 import "./home.css";
 
-  const Home = () => {
+const Home = () => {
   const { theme } = useTheme();
   const { isLoggedIn } = useAuth();
   const [events, setEvents] = useState([]);
@@ -156,8 +156,6 @@ import "./home.css";
         </div>
       </section>
 
-    
-      
       <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Drives</h2>
@@ -198,9 +196,8 @@ import "./home.css";
             </div>
           </div>
 
-
           {/* Beach Cleaning */}
-          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px"}}>
+          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
             <div className="row g-0">
               <div className="col-md-4">
                 <img
