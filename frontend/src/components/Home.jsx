@@ -80,13 +80,13 @@ import "./home.css";
         <Slider {...sliderSettings}>
           <div>
             <img
-              src="https://bloc-i.thgim.com/public/b-school-corner/article28189365.ece/alternates/LANDSCAPE_1200/SPJIMR-students-with-residents-of-a-village-in-Warangal"
+              src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/03/06/Pictures/september-ludhiana-phullanwal-october-government-students-ludhiana_48ec1af8-0254-11e7-a2a9-8cc6a4d5973b.jpg"
               alt="Event 1"
             />
           </div>
           <div>
             <img
-              src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/03/06/Pictures/september-ludhiana-phullanwal-october-government-students-ludhiana_48ec1af8-0254-11e7-a2a9-8cc6a4d5973b.jpg"
+              src="https://bloc-i.thgim.com/public/b-school-corner/article28189365.ece/alternates/LANDSCAPE_1200/SPJIMR-students-with-residents-of-a-village-in-Warangal"
               alt="Event 2"
             />
           </div>
