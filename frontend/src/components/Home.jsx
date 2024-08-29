@@ -192,11 +192,52 @@ const Home = () => {
       </section>
 
       <section className={`py-4 bg-${theme}`} id="upcoming-events">
+            <div className="container">
+                <h2 className="section-heading text-center">Upcoming Drives</h2>
+                <hr className="divider my-4" />
+
+                {events.length > 0 ? (
+                    events.map((e, index) => (
+                        <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }} key={index}>
+                            <div className="row g-0">
+                                <div className="col-md-4">
+                                    <img
+                                        src="https://th.bing.com/th/id/R.644b5c8d9ba326376fb49138018483b9?rik=NUZlrAmatX8Rkw&riu=http%3a%2f%2fswitchindia.org%2fimages%2fwork%2ffree-health-check-up-camp-at-airoli04.jpg&ehk=492SNHx4zpUYB5teNFH2SI6NRebl1dhmnLQ8ev%2bLp6s%3d&risl=&pid=ImgRaw&r=0"
+                                        className="img-fluid rounded-start"
+                                        alt={e.title}
+                                    />
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <h5 className="card-title">{e.title}</h5>
+                                        <p className="card-text truncate" dangerouslySetInnerHTML={{ __html: e.content }}></p>
+                                        <div><small><p><b><FaCalendar className='me-1 ' />{formatDate(e.schedule)}</b></p></small></div>
+                                        <button
+                                            className="btn btn-primary float-right read_more"
+                                            onClick={() => navigate("events/view", { state: { action: "view", data: e } })}
+                                        >
+                                            Read More
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="d-flex flex-column justify-content-center align-items-center">
+                        <h4 className='text-info-emphasis'>No Upcoming Drives Available</h4>
+                    </div>
+                )}
+            </div>
+        </section>
+
+      
+
+      {/* <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Drives</h2>
           <hr className="divider my-4" />
 
-          {/* Community Health Check-up */}
           <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
             <div className="row g-0">
               <div className="col-md-4">
@@ -208,30 +249,28 @@ const Home = () => {
               </div>
               <div className="col-md-8">
                 <div className="card-body">
-                  <h5 className="card-title">Community Health Check-up</h5>
+                  <h5 className="card-title">{e.title}</h5>
                   <p className="card-text">
                     Join us for a comprehensive health check-up camp aimed at
                     providing essential health services to underserved
                     communities. Your support can help provide medical supplies
                     and professional care to those in need.
                   </p>
+                  <div><small><p><b><FaCalendar className='me-1 ' />{formatDate(e.schedule)}</b></p></small></div>
                   <p className="card-text">
                     <small className="text-muted">
                       Date: October 15, 2024 | Location: Airoli
                     </small>
                   </p>
-                  {/* <button
-                    className="btn btn-primary float-end read_more"
-                    // onClick={() => navigate("events/view", { state: { action: "view", data: e } })}
-                  >
+                  <button
+                     className="btn btn-primary float-right read_more" onClick={() => navigate("events/view", { state: { action: "view", data: e } })}>
                     Read More
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Beach Cleaning */}
           <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
             <div className="row g-0">
               <div className="col-md-4">
@@ -260,7 +299,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section>  */}
     </div>
   );
 };
