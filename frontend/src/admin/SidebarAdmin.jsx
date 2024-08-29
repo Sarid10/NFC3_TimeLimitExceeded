@@ -43,15 +43,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/courses")}`}
-            to={"/dashboard/courses"}
+            className={`nav-link ${isActive("/dashboard/projects")}`}
+            to={"/dashboard/projects"}
           >
             <ImBooks />
-            <span className="ms-1">Courses</span>
+            <span className="ms-1">Projects</span>
           </Link>
         </li>
         <hr />
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/alumnilist")}`}
             to={"/dashboard/alumnilist"}
@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <RiSuitcaseFill />
             <span className="ms-1">Jobs</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/donations")}`}

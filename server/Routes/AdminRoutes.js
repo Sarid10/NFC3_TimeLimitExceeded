@@ -5,8 +5,8 @@ import multer from "multer";
 import path from "path";
 import bcrypt from "bcrypt";
 const router = express.Router();
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,11 +15,11 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS
-  }
+    pass: process.env.GMAIL_PASS,
+  },
 });
 
 const avatarStorage = multer.diskStorage({
@@ -55,18 +55,18 @@ router.post("/send_email_with_pdf", (req, res) => {
     text,
     attachments: [
       {
-        filename, 
-        path: path.join(__dirname, `../../reports/${filename}`), 
-        contentType: 'application/pdf'
-      }
-    ]
+        filename,
+        path: path.join(__dirname, `../../reports/${filename}`),
+        contentType: "application/pdf",
+      },
+    ],
   };
-  
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log("Email sent: " + info.response);
     }
   });
 });
@@ -77,14 +77,14 @@ router.post("/send_email", (req, res) => {
     from: process.env.GMAIL_USER,
     to,
     subject,
-    text
+    text,
   };
-  
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log("Email sent: " + info.response);
     }
   });
 });
@@ -503,6 +503,81 @@ router.post("/courses", (req, res) => {
       return res.json({ Error: "Query Error" });
     }
     return res.json(result.insertId);
+  });
+});
+
+router.post("/projects", (req, res) => {
+  console.log(req.body);
+  const {
+    description,
+    amountRequired,
+    collect,
+    urlImage,
+    numberOfVolunteers,
+    projectManagerId,
+  } = req.body;
+
+  const sql =
+    "INSERT INTO projects(description, amount_required, collect, url_image, number_of_volunteers, project_manager_id) VALUES (?, ?, ?, ?, ?, ?)";
+  con.query(
+    sql,
+    [
+      description,
+      amountRequired,
+      collect,
+      urlImage,
+      numberOfVolunteers,
+      projectManagerId,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        return res.json({ Error: "Query Error" });
+      }
+      return res.json({ insertId: result.insertId });
+    }
+  );
+});
+
+router.get("/projects", (req, res) => {
+  const sql = "SELECT * FROM projects";
+
+  con.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error fetching projects:", err);
+      return res.json({ Error: "Query Error" });
+    }
+    return res.json(results);
+  });
+});
+
+router.get("/projects/:projectManagerId", (req, res) => {
+  const projectManagerId = req.params.projectManagerId;
+  console.log(projectManagerId);
+  const sql = "SELECT * FROM projects WHERE project_manager_id = ?";
+  con.query(sql, [projectManagerId], (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ Error: "Query Error" });
+    }
+    return res.json(results);
+  });
+});
+
+router.delete("/projects/:id", (req, res) => {
+  const projectId = req.params.id;
+  console.log(projectId);
+
+  const sql = "DELETE FROM projects WHERE id = ?";
+  con.query(sql, [projectId], (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.json({ Error: "Query Error" });
+    }
+    if (result.affectedRows === 0) {
+      return res.json({ message: "Project not found" });
+    }
+    return res.json({ message: "Project deleted successfully" });
   });
 });
 

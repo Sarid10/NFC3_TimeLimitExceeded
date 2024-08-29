@@ -34,14 +34,14 @@ const SidebarPM = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/gallery")}`}
-            to="/dashboard/gallery"
+            className={`nav-link ${isActive("/dashboard/assigned")}`}
+            to="/dashboard/assigned"
           >
             <FaImage />
-            <span className="ms-1">Gallery</span>
+            <span className="ms-1">Projects Assigned</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/courses")}`}
             to={"/dashboard/courses"}
@@ -68,7 +68,7 @@ const SidebarPM = ({ isOpen, toggleSidebar }) => {
             <RiSuitcaseFill />
             <span className="ms-1">Jobs</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/donations")}`}
