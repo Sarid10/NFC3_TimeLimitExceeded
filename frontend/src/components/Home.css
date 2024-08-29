@@ -1,0 +1,76 @@
+.carousel-section {
+    width: 100%; /* Ensure full width */
+    margin: 0 auto; /* Center horizontally */
+    height: 10%; /* Set desired height */
+    position: relative;
+    z-index: 1; /* Ensure it's on top of other content */
+}
+
+.carousel-section img {
+    width: 100%; /* Ensure images fill the width of the carousel */
+    height: 90%; /* Ensure images fill the height of the carousel */
+    object-fit: cover; /* Cover the area of the carousel */
+}
+
+/* Optional: Style for slick dots */
+.slick-dots li button:before {
+    font-size: 10px;
+    color: #000; /* Dot color */
+}
+
+.slick-dots li.slick-active button:before {
+    color: #fff; /* Active dot color */
+}
+
+/* Optional: Style for slick arrows */
+.slick-arrow {
+    background-color: #000; /* Arrow background */
+    border-radius: 50%;
+    color: #fff; /* Arrow color */
+}
+
+.donor-card {
+    /* Set a maximum height for the cards */
+    max-height: 300px; /* Adjust this value as needed */
+    overflow: hidden; /* Hide any content that overflows */
+    display: flex;
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+}
+
+.donor-card img {
+    max-height: 100%; /* Ensure the image fits within the card's height */
+    object-fit: contain; /* Adjust image fit within the card */
+}
+
+.event-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+.banner {
+    flex: 0 0 150px; /* Adjust width as needed */
+    margin-right: 20px; /* Space between image and text */
+}
+
+.event-image {
+    width: 100%; /* Ensure image fills the container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.event-description {
+    flex: 1; /* Fill the remaining space */
+}
+
+.event-description h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.event-description p {
+    margin-bottom: 10px;
+}
+
+
+  
