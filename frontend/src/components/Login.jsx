@@ -33,6 +33,7 @@ const Login = () => {
           localStorage.setItem("user_id", res.data.userId);
           localStorage.setItem("user_type", res.data.userType);
           localStorage.setItem("user_name", res.data.userName);
+          localStorage.setItem("user_email", values.email);
 
           login();
           navigate("/", { state: { action: "homelogin" } });
@@ -96,8 +97,7 @@ const Login = () => {
                       />
                       <div className="text-danger mt-2">{errors && errors}</div>
                       <small className="mt-2 text-muted ">
-                        Don't have an account?{" "}
-                        <Link to="/signup">Sign up here</Link>
+                        Don't have an account? <Link to="/signup">Sign up</Link>
                       </small>
                     </div>
                     <hr className="divider" />
