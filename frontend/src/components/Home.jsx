@@ -7,12 +7,10 @@ import { FaCalendar } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useTheme } from "../ThemeContext";
 
-// Slick imports
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// CSS import
 import "./home.css";
 
   const Home = () => {
@@ -54,7 +52,6 @@ import "./home.css";
     return new Date(timestamp).toLocaleDateString("en-US", options);
   };
 
-  // Slick Slider settings
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -80,13 +77,13 @@ import "./home.css";
         <Slider {...sliderSettings}>
           <div>
             <img
-              src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/03/06/Pictures/september-ludhiana-phullanwal-october-government-students-ludhiana_48ec1af8-0254-11e7-a2a9-8cc6a4d5973b.jpg"
+              src="https://bloc-i.thgim.com/public/b-school-corner/article28189365.ece/alternates/LANDSCAPE_1200/SPJIMR-students-with-residents-of-a-village-in-Warangal"
               alt="Event 1"
             />
           </div>
           <div>
             <img
-              src="https://bloc-i.thgim.com/public/b-school-corner/article28189365.ece/alternates/LANDSCAPE_1200/SPJIMR-students-with-residents-of-a-village-in-Warangal"
+              src="https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2017/03/06/Pictures/september-ludhiana-phullanwal-october-government-students-ludhiana_48ec1af8-0254-11e7-a2a9-8cc6a4d5973b.jpg"
               alt="Event 2"
             />
           </div>
