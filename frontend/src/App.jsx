@@ -41,6 +41,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./components/NotFound";
 import ManageDonations from "./admin/save/ManageDonations";
 import Donations from "./components/Donations";
+import AdminProjects from "./admin/AdminProjects";
+import PMAssigned from "./PM/PMAssigned";
+import ViewProject from "./PM/ViewProject";
 
 function App() {
   return (
@@ -78,6 +81,8 @@ function AppRouter() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<AdminHome />} />
             <Route path="/dashboard/courses" element={<AdminCourses />} />
+            <Route path="/dashboard/assigned" element={<PMAssigned />} />
+            <Route path="/dashboard/projects" element={<AdminProjects />} />
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
             <Route path="/dashboard/settings" element={<AdminSettings />} />
@@ -99,6 +104,7 @@ function AppRouter() {
             <Route path="/dashboard/forum/manage" element={<ManageForum />} />
             <Route path="/dashboard/users/manage" element={<ManageUser />} />
             <Route path="/dashboard/alumni/view" element={<ViewAlumni />} />
+            <Route path="/dashboard/projects/:id" element={<ViewProject />} />
           </Route>
         )}
         <Route path="events/view" element={<View_Event />} />
