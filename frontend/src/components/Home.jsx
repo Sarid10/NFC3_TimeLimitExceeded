@@ -6,6 +6,10 @@ import { FiBook, FiUsers, FiClipboard, FiTool } from "react-icons/fi";
 import { FaCalendar } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useTheme } from "../ThemeContext";
+import carousel1 from "../assets/uploads/carousel1.jpg";
+import carousel2 from "../assets/uploads/carousel2.jpg";
+import carousel3 from "../assets/uploads/carousel3.jpg";
+
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -77,7 +81,7 @@ import "./home.css";
         <Slider {...sliderSettings}>
           <div>
             <img
-              src="https://bloc-i.thgim.com/public/b-school-corner/article28189365.ece/alternates/LANDSCAPE_1200/SPJIMR-students-with-residents-of-a-village-in-Warangal"
+              src={carousel1}
               alt="Event 1"
             />
           </div>

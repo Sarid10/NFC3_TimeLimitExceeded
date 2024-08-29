@@ -3,10 +3,13 @@ import { FaMapMarker } from "react-icons/fa";
 import axios from "axios";
 import { AuthProvider, useAuth } from '../../AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { Confetti } from 'react-confetti';
+
 
 const ViewDonations = ({ donation, closeModal }) => {
   const [amount, setAmount] = useState(0);
   const { isLoggedIn } = useAuth();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handlePay = async (e) => {
     if(!amount || amount < 1) {
@@ -91,6 +94,13 @@ const ViewDonations = ({ donation, closeModal }) => {
       style={{ display: "block" }}
     >
       <ToastContainer position="top-center" />
+      <Confetti
+        size={8}
+        shape="circle"
+        colors={['#f44336', '#9c27b0', '#3f51b5']}
+        wind={5}
+        gravity={0.2}
+      />
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header">
