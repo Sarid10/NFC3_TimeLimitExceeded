@@ -5,6 +5,22 @@ import multer from "multer";
 import path from "path";
 import bcrypt from "bcrypt";
 const router = express.Router();
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS
+  }
+});
 
 const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,6 +45,49 @@ const galleryStorage = multer.diskStorage({
   },
 });
 const galleryUpload = multer({ storage: galleryStorage });
+
+router.post("/send_email_with_pdf", (req, res) => {
+  const { to, subject, text, filename } = req.body;
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to,
+    subject,
+    text,
+    attachments: [
+      {
+        filename, 
+        path: path.join(__dirname, `../../reports/${filename}`), 
+        contentType: 'application/pdf'
+      }
+    ]
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
+
+router.post("/send_email", (req, res) => {
+  const { to, subject, text } = req.body;
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to,
+    subject,
+    text
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
 
 router.post("/login", (req, res) => {
   const sql = "SELECT * from users Where email=?";
@@ -101,7 +160,7 @@ router.post("/donordetails", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { name, email, password, userType, course_id } = req.body;
+  const { name, email, password, userType, phone } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -131,7 +190,7 @@ router.post("/signup", async (req, res) => {
 
               const alumnusId = alumnusResult.insertId;
               const userSql =
-                "INSERT INTO users(name, email, password, type, alumnus_id) VALUES(?,?,?,?,?)";
+                "INSERT INTO users(name, email, password, type, phone) VALUES(?,?,?,?,?)";
               con.query(
                 userSql,
                 [name, email, hashedPassword, userType, alumnusId],
@@ -156,10 +215,10 @@ router.post("/signup", async (req, res) => {
           );
         } else {
           const sql =
-            "INSERT INTO users(name, email, password, type) VALUES(?,?,?,?)";
+            "INSERT INTO users(name, email, password, type,phone) VALUES(?,?,?,?,?)";
           con.query(
             sql,
-            [name, email, hashedPassword, userType],
+            [name, email, hashedPassword, userType, phone],
             (err, result) => {
               if (err) {
                 console.error("Error executing SQL query for users:", err);

@@ -57,12 +57,30 @@ const ViewDonations = ({ donation, closeModal }) => {
       donated_to_id: donation.id,
     };
 
+    const mailData = {
+      to: localStorage.getItem("user_email"),
+      subject: "Thanks For Donation!",
+      text: `Dear ${localStorage.getItem("user_name")}, Thanks for your generous donation of ₹${formData2.amount_donated}`
+    }
+
+    const mailDataWithPdf = {
+      to: localStorage.getItem("user_email"),
+      subject: "Thanks For Donation!",
+      text: `Dear ${localStorage.getItem("user_name")}, Thanks for your generous donation of ₹${formData2.amount_donated}`,
+      filename: 'NFC_PS.pdf'
+    }
+
     await axios
       .put("http://localhost:3000/auth/updatedonation", formData)
       .then(async (res) => {
         await axios
           .post("http://localhost:3000/auth/adddonor", formData2)
-          .then((res) => toast.success(res.data.message));
+          .then(async(res) => {
+            // toast.success(res.data.message);
+            await axios
+              .post("http://localhost:3000/auth/send_email", mailData)
+              .then((res) => console.log("Mail sent"));
+          });
       });
   };
   return (
