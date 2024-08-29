@@ -7,13 +7,13 @@ import ReactQuill from "react-quill";
 const ManageEvents = ({ setHandleAdd }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const uid = localStorage.getItem("user_id");
+  const pm_id = localStorage.getItem("user_id");
 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    user_id: uid,
-    items: [{ itemName: "", itemCost: "" }],
+    pm_id: pm_id,
+    items: [{ itemName: "", itemCost: "" }]
   });
 
   const handleChange = (e) => {
@@ -48,21 +48,9 @@ const ManageEvents = ({ setHandleAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios
-        .post("http://localhost:3000/auth/addDetails", formData)
-        .then((res) => toast.success(res.data.message));
-
-      setFormData({
-        title: "",
-        description: "",
-        user_id: uid,
-        items: [{ itemName: "", itemCost: "" }],
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("An error occurred");
-    }
+    console.log(formData);
+    navigate("/dashboard/reports/sample", { state: formData });
+    
   };
 
   const handleChangeDesc = (description) => {
@@ -148,7 +136,7 @@ const ManageEvents = ({ setHandleAdd }) => {
           </div>
 
           <div className="col-md-8">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
               Submit
             </button>
             <button

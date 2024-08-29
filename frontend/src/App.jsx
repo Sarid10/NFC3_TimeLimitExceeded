@@ -48,6 +48,8 @@ import SmallDonatePage from "./components/SmallDonate";
 import OrganizationForm from "./components/OrganizationForm";
 import PMReport from "./PM/PMReport";
 import PMlist from "./PM/PMList";
+import ReportTemplate from '../src/admin/report/ReportTemplate';
+import ReportRecieved from "./admin/ReportRecieved";
 
 function App() {
   return (
@@ -92,6 +94,7 @@ function AppRouter() {
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
             <Route path="/dashboard/settings" element={<AdminSettings />} />
+            <Route path="/dashboard/receipt" element={<ReportRecieved />} />
             <Route path="/dashboard/reports" element={<AdminEvents />} />
             <Route path="/dashboard/forum" element={<AdminForum />} />
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
@@ -104,6 +107,7 @@ function AppRouter() {
             />
             <Route path="/dashboard/jobs/manage" element={<ManageJobs />} />
             <Route path="/dashboard/reports/manage " element={<PMReport />} />
+            <Route path="/dashboard/reports/sample" element={<ReportTemplate />} />
             <Route
               path="/dashboard/donations/manage"
               element={<ManageDonations />}

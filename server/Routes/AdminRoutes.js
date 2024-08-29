@@ -551,9 +551,25 @@ router.get("/projects", (req, res) => {
   });
 });
 
+router.post("/add_report", (req, res) => {
+  const { title, description, number_of_items, total_cost, html_string, pm_id } = req.body;
+  const sql =
+    "INSERT INTO reports (title, description, number_of_items, total_cost, html_string, pm_id) VALUES (?, ?, ?, ?, ?, ?)";
+  con.query(sql, [title, description, number_of_items, total_cost, html_string, pm_id], (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "Database Error" });
+    }
+    return res.json({
+      message: "Insert New Report successfully",
+      jobId: result.insertId,
+    });
+  });
+});
+
 router.get("/projects/:projectManagerId", (req, res) => {
   const projectManagerId = req.params.projectManagerId;
-  console.log(projectManagerId);
+  // console.log(projectManagerId);
   const sql = "SELECT * FROM projects WHERE project_manager_id = ?";
   con.query(sql, [projectManagerId], (err, results) => {
     if (err) {
@@ -602,6 +618,19 @@ router.put("/courses", (req, res) => {
 router.get("/events", (req, res) => {
   const sql =
     "SELECT events.*, COUNT(event_commits.id) AS commits_count FROM events LEFT JOIN event_commits ON events.id = event_commits.event_id GROUP BY events.id ORDER BY events.schedule DESC";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "Query Error" });
+    }
+    return res.json(result);
+  });
+});
+
+router.get("/reports", (req, res) => {
+  const sql =
+    "SELECT * from reports";
 
   con.query(sql, (err, result) => {
     if (err) {
