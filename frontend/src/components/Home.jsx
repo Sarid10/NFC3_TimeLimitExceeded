@@ -102,7 +102,7 @@ import "./home.css";
       <section className={`page-section bg-${theme}`} id="donors">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-heading text-uppercase">TOPDonors</h2>
+            <h2 className="section-heading text-uppercase">TOP Donors</h2>
             <h3 className="card-title text-muted">
               We are grateful to our esteemed donors for their generous support.
             </h3>
