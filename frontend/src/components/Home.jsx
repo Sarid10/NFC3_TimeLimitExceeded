@@ -44,6 +44,7 @@ const Home = () => {
       .get('http://localhost:3000/auth/up_events')
       .then((res) => {
         setEvents(res.data)
+        console.log(events);
       })
       .catch((err) => console.log(err))
   }, [])
@@ -69,6 +70,9 @@ const Home = () => {
     autoplaySpeed: 3000,
     arrows: true,
   }
+
+  console.log(events);
+  console.log(events.length);
 
   return (
     <div>
@@ -206,7 +210,7 @@ const Home = () => {
                 <div className="row g-0">
                   <div className="col-md-4">
                     <img
-                      src="https://th.bing.com/th/id/R.644b5c8d9ba326376fb49138018483b9?rik=NUZlrAmatX8Rkw&riu=http%3a%2f%2fswitchindia.org%2fimages%2fwork%2ffree-health-check-up-camp-at-airoli04.jpg&ehk=492SNHx4zpUYB5teNFH2SI6NRebl1dhmnLQ8ev%2bLp6s%3d&risl=&pid=ImgRaw&r=0"
+                      src={e.event_url}
                       className="img-fluid rounded-start"
                       alt={e.title}
                     />
@@ -229,6 +233,7 @@ const Home = () => {
                         </small>
                       </div>
                       <button
+                      style={{marginBottom:"20px"}}
                         className="btn btn-primary float-right read_more"
                         onClick={() =>
                           navigate('events/view', {
@@ -259,7 +264,6 @@ const Home = () => {
           <hr className="divider my-4" />
 
           <div className="row justify-content-center">
-            {/* Small Donations Link */}
             <div className="col-md-6 mb-4">
               <div className="card h-100 border-primary">
                 <div className="card-body">
@@ -277,7 +281,7 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Organization Resource Request Link */}
+      
             <div className="col-md-6 mb-4">
               <div className="card h-100 border-primary">
                 <div className="card-body">
@@ -296,73 +300,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* <section className={`py-4 bg-${theme}`} id="upcoming-events">
-        <div className="container">
-          <h2 className="section-heading text-center">Upcoming Drives</h2>
-          <hr className="divider my-4" />
-
-          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
-            <div className="row g-0">
-              <div className="col-md-4">
-                <img
-                  src="https://th.bing.com/th/id/R.644b5c8d9ba326376fb49138018483b9?rik=NUZlrAmatX8Rkw&riu=http%3a%2f%2fswitchindia.org%2fimages%2fwork%2ffree-health-check-up-camp-at-airoli04.jpg&ehk=492SNHx4zpUYB5teNFH2SI6NRebl1dhmnLQ8ev%2bLp6s%3d&risl=&pid=ImgRaw&r=0"
-                  className="img-fluid rounded-start"
-                  alt="Community Health Check-up"
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h5 className="card-title">{e.title}</h5>
-                  <p className="card-text">
-                    Join us for a comprehensive health check-up camp aimed at
-                    providing essential health services to underserved
-                    communities. Your support can help provide medical supplies
-                    and professional care to those in need.
-                  </p>
-                  <div><small><p><b><FaCalendar className='me-1 ' />{formatDate(e.schedule)}</b></p></small></div>
-                  <p className="card-text">
-                    <small className="text-muted">
-                      Date: October 15, 2024 | Location: Airoli
-                    </small>
-                  </p>
-                  <button
-                     className="btn btn-primary float-right read_more" onClick={() => navigate("events/view", { state: { action: "view", data: e } })}>
-                    Read More
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="card mb-3 mx-auto" style={{ maxWidth: "720px" }}>
-            <div className="row g-0">
-              <div className="col-md-4">
-                <img
-                  src="https://th.bing.com/th/id/OIP.BskWENM8jKpD-Qb8usfp4wHaE8?rs=1&pid=ImgDetMain"
-                  className="img-fluid rounded-start"
-                  alt="Beach Cleaning"
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h5 className="card-title">Beach Cleaning</h5>
-                  <p className="card-text">
-                    Participate in our beach cleaning drive to help maintain and
-                    beautify our coastal areas. Volunteers will work together to
-                    collect trash and debris from the beach, promoting
-                    environmental sustainability and community involvement.
-                  </p>
-                  <p className="card-text">
-                    <small className="text-muted">
-                      Date: October 25, 2024 | Location: Marine Drive
-                    </small>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>  */}
+    
     </div>
   )
 }
