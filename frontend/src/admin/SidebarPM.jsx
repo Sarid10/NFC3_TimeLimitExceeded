@@ -13,7 +13,7 @@ import { RiMoneyDollarBoxFill } from "react-icons/ri";
 import { MdForum } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const SidebarPM = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
 
   const isActive = (path) => {
@@ -29,7 +29,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             to="/dashboard"
           >
             <FaHome />
-            <span className="ms-1">Home</span>
+            <span className="ms-1">PM</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">
@@ -111,4 +111,4 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarPM;

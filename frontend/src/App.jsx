@@ -56,7 +56,7 @@ function App() {
 }
 
 function AppRouter() {
-  const { isLoggedIn, isAdmin } = useAuth();
+  const { isLoggedIn, isAdmin, isIM, isPM } = useAuth();
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/dashboard");
 
@@ -74,7 +74,7 @@ function AppRouter() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {isLoggedIn && isAdmin && (
+        {isLoggedIn && (isAdmin || isIM || isPM) && (
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<AdminHome />} />
             <Route path="/dashboard/courses" element={<AdminCourses />} />
