@@ -9,6 +9,10 @@ import { useTheme } from '../ThemeContext'
 import carousel1 from '../assets/img/ngo_1.jpg'
 import carousel2 from '../assets/img/ngo_2.jpg'
 import carousel3 from '../assets/img/ngo_3.jpg'
+import tata from '../assets/img/tata.jpeg'
+import jpmc from '../assets/img/jpmc.jpg'
+import hdfc from '../assets/img/hdfc_bank.jpg'
+import reliance from '../assets/img/reliance.jpeg'
 
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -82,16 +86,10 @@ const Home = () => {
             <img src={carousel1} alt="Event 1" />
           </div>
           <div>
-            <img
-              src={carousel2}
-              alt="Event 2"
-            />
+            <img src={carousel2} alt="Event 2" />
           </div>
           <div>
-            <img
-              src={carousel3}
-              alt="Event 3"
-            />
+            <img src={carousel3} alt="Event 3" />
           </div>
         </Slider>
       </section>
@@ -108,45 +106,81 @@ const Home = () => {
             <div className="col-lg-3 col-sm-6 mb-4">
               <div className="card h-100 donor-card">
                 <div className="card-body text-center">
-                  <img
-                    src="https://th.bing.com/th/id/R.249b81fe1da83fd6f5235e8b02037b66?rik=XCOG1zu4e5z6WA&riu=http%3a%2f%2fwww.indiantelevision.com%2fsites%2fdefault%2ffiles%2fstyles%2fsmartcrop_800x800%2fpublic%2fimages%2ftv-images%2f2019%2f08%2f14%2ftata.jpg%3fitok%3d9kh62vPd&ehk=5P9%2fk6HRz6LutFvmXUvi33KEYZmHq%2fVkVUYE2TDHc3o%3d&risl=&pid=ImgRaw&r=0"
-                    alt="Tata"
-                    className="img-fluid"
-                  />
+                  <img src={tata} alt="Tata" className="img-fluid mb-3" />
                 </div>
+                <b>Amount Donated</b>
+                <p
+                  className="card-text"
+                  style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginTop: '0px',
+                    display: 'block',
+                  }}
+                >
+                  ₹63 Lakhs
+                </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
               <div className="card h-100 donor-card">
                 <div className="card-body text-center">
-                  <img
-                    src="https://static.vecteezy.com/system/resources/previews/020/336/362/original/hdfc-logo-hdfc-icon-free-free-vector.jpg"
-                    alt="HDFC"
-                    className="img-fluid"
-                  />
+                  <img src={hdfc} alt="HDFC" className="img-fluid mb-3" />
                 </div>
+                <b>Amount Donated</b>
+                <p
+                  className="card-text"
+                  style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginTop: '0px',
+                    display: 'block',
+                  }}
+                >
+                  ₹51 Lakhs
+                </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
               <div className="card h-100 donor-card">
                 <div className="card-body text-center">
-                  <img
-                    src="https://v6r2p5t5.rocketcdn.me/wp-content/uploads/2024/02/JPM_logo_2008_PRINT_B_Black-wp.jpg"
-                    alt="JP Morgan"
-                    className="img-fluid"
-                  />
+                  <img src={jpmc} alt="JP Morgan" className="img-fluid mb-3" />
                 </div>
+                <b>Amount Donated</b>
+                <p
+                  className="card-text"
+                  style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginTop: '0px',
+                    display: 'block',
+                  }}
+                >
+                  ₹42 Lakhs
+                </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
               <div className="card h-100 donor-card">
                 <div className="card-body text-center">
-                  <img
-                    src="https://th.bing.com/th/id/R.9ccef8eba80d2ae4316b19f6c2c58ed7?rik=Fv64mJ%2bveUY8Cg&riu=http%3a%2f%2fwww.topnews.in%2ffiles%2fReliance-Communications_6.jpg&ehk=iRmsKbYZbOA2iWHrFlFaZgaqM3hECgMjVkT5QtfihYs%3d&risl=&pid=ImgRaw&r=0"
-                    alt="Reliance"
-                    className="img-fluid"
-                  />
+                  <img src={reliance} alt="Reliance" className="img-fluid mb-3" />
                 </div>
+                <b>Amount Donated</b>
+                <p
+                  className="card-text"
+                  style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginTop: '0px',
+                    display: 'block',
+                  }}
+                >
+                  ₹30 Lakhs
+                </p>
               </div>
             </div>
           </div>
