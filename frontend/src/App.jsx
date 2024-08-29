@@ -44,6 +44,8 @@ import Donations from "./components/Donations";
 import AdminProjects from "./admin/AdminProjects";
 import PMAssigned from "./PM/PMAssigned";
 import ViewProject from "./PM/ViewProject";
+import SmallDonatePage from "./components/SmallDonate";
+import OrganizationForm from "./components/OrganizationForm";
 
 function App() {
   return (
@@ -70,7 +72,9 @@ function AppRouter() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/alumni" element={<AlumniList />} />
+        <Route path="/smalldonate" element={<SmallDonatePage />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/orgform" element={<OrganizationForm />} />
         <Route path="/jobs" element={<Careers />} />
         <Route path="/donate" element={<Donations />} />
         <Route path="/forums" element={<Forum />} />

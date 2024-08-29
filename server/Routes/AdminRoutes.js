@@ -6,12 +6,19 @@ import path from "path";
 import bcrypt from "bcrypt";
 const router = express.Router();
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "timelimitexceeded4@gmail.com",
-    pass: "SIH_1641",
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
   },
 });
 
@@ -39,10 +46,35 @@ const galleryStorage = multer.diskStorage({
 });
 const galleryUpload = multer({ storage: galleryStorage });
 
+router.post("/send_email_with_pdf", (req, res) => {
+  const { to, subject, text, filename } = req.body;
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to,
+    subject,
+    text,
+    attachments: [
+      {
+        filename,
+        path: path.join(__dirname, `../../reports/${filename}`),
+        contentType: "application/pdf",
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+});
+
 router.post("/send_email", (req, res) => {
   const { to, subject, text } = req.body;
   const mailOptions = {
-    from: "youremail@gmail.com",
+    from: process.env.GMAIL_USER,
     to,
     subject,
     text,
@@ -257,6 +289,21 @@ router.get("/jobs", (req, res) => {
     ORDER BY careers.id DESC       
     `;
 
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "Query Error" });
+    }
+    res.json(result);
+  });
+});
+
+router.get("/unique_donors_list", (req, res) => {
+  const sql = `SELECT u.id, u.name, u.email, SUM(d.amount_donated) AS total_amount_donated
+    FROM donors d
+    JOIN users u ON d.user_id = u.id
+    GROUP BY u.id, u.name;
+  `;
   con.query(sql, (err, result) => {
     if (err) {
       console.error("Error executing SQL query:", err);

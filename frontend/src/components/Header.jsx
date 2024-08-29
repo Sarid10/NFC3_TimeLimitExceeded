@@ -86,7 +86,7 @@ const Header = () => {
                   )}`}
                   to="/alumni"
                 >
-                  Alumni
+                  Donors
                 </Link>
               </li>
               <li className="nav-item">
@@ -100,7 +100,7 @@ const Header = () => {
                   Gallery
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
                   className={`nav-link js-scroll-trigger ${isActive("/jobs")}`}
@@ -108,7 +108,7 @@ const Header = () => {
                 >
                   Jobs
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
