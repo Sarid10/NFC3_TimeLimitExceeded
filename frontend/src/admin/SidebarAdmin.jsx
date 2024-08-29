@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Home</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/gallery")}`}
             to="/dashboard/gallery"
@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaImage />
             <span className="ms-1">Gallery</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/projects")}`}
