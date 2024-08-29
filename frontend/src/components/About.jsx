@@ -62,17 +62,6 @@ const About = () => {
         </div>
       </section>
 
-      {system.length > 0 && (
-        <section className="page-section">
-          <div className="container">
-            <h2 className="text-center">{system[0].name}</h2>
-            <br />
-            <p
-              dangerouslySetInnerHTML={{ __html: system[0].about_content }}
-            ></p>
-          </div>
-        </section>
-      )}
     </>
   )
 }

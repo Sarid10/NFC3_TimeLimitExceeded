@@ -4,9 +4,11 @@ import axios from "axios";
 import { AuthProvider, useAuth } from '../../AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 
-const ViewDonations = ({ donation, closeModal }) => {
+
+const ViewDonations = ({ donation, closeModal, triggerConfetti }) => {
   const [amount, setAmount] = useState(0);
   const { isLoggedIn } = useAuth();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handlePay = async (e) => {
     if(!amount || amount < 1) {
@@ -37,7 +39,11 @@ const ViewDonations = ({ donation, closeModal }) => {
         "https://vjti.ac.in/wp-content/uploads/oldupload/cropped-New-VJTI-Logo_1-1-60x87.jpg",
       order_id: order.id,
       handler: async function (res) {
-        window.location.reload();
+        closeModal();
+        triggerConfetti();
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
       },
     };
     var rzp1 = new Razorpay(option);
