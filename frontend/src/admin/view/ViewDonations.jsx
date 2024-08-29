@@ -57,12 +57,23 @@ const ViewDonations = ({ donation, closeModal }) => {
       donated_to_id: donation.id,
     };
 
+    const mailData = {
+      to: "",
+      subject: "",
+      text: ""
+    }
+
     await axios
       .put("http://localhost:3000/auth/updatedonation", formData)
       .then(async (res) => {
         await axios
           .post("http://localhost:3000/auth/adddonor", formData2)
-          .then((res) => toast.success(res.data.message));
+          .then(async(res) => {
+            toast.success(res.data.message);
+            await axios
+              .post("http://localhost:3000/auth/adddonor", mailData)
+              .then((res) => console.log("Mail sent"));
+          });
       });
   };
   return (

@@ -5,6 +5,15 @@ import multer from "multer";
 import path from "path";
 import bcrypt from "bcrypt";
 const router = express.Router();
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'timelimitexceeded4@gmail.com',
+    pass: 'SIH_1641'
+  }
+});
 
 const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,6 +38,24 @@ const galleryStorage = multer.diskStorage({
   },
 });
 const galleryUpload = multer({ storage: galleryStorage });
+
+router.post("/send_email", (req, res) => {
+  const { to, subject, text } = req.body;
+  const mailOptions = {
+    from: 'youremail@gmail.com',
+    to,
+    subject,
+    text
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
 
 router.post("/login", (req, res) => {
   const sql = "SELECT * from users Where email=?";
