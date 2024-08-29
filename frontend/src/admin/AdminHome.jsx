@@ -46,7 +46,6 @@ const AdminHome = () => {
       })
       .catch((err) => {
         console.error(err);
-        alert("Failed to fetch counts");
       });
   }, []);
 
@@ -57,7 +56,7 @@ const AdminHome = () => {
           <div className="col-lg-10 m-2">
             <div className="row">
               <InfoCard
-                title={`Alumni <span>| Total</span>`}
+                title={`Donors <span>| Total</span>`}
                 count={counts.alumni}
                 Icon={FaUsers}
                 className="customers-card"

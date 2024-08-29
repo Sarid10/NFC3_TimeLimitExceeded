@@ -1,45 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { FaPlus } from "react-icons/fa";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/events')
+    axios
+      .get("http://localhost:3000/auth/events")
       .then((res) => setEvents(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   const delEvent = (id) => {
-    axios.delete(`http://localhost:3000/auth/events/${id}`)
+    axios
+      .delete(`http://localhost:3000/auth/events/${id}`)
       .then((res) => {
-        console.log(res.data.message)
+        console.log(res.data.message);
         toast.success(res.data.message);
-        setEvents(events.filter((e) => e.id !== id))
+        setEvents(events.filter((e) => e.id !== id));
       })
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   const formatDate = (timestamp) => {
-    const options = { month: 'long', day: 'numeric', year: 'numeric' };
-    return new Date(timestamp).toLocaleDateString('en-US', options);
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    return new Date(timestamp).toLocaleDateString("en-US", options);
   };
 
   const CutContent = (content, maxLength) => {
-    const strippedContent = content.replace(/<[^>]+>/g, '');
+    const strippedContent = content.replace(/<[^>]+>/g, "");
     if (strippedContent.length > maxLength) {
-      return strippedContent.substring(0, maxLength) + '...';
+      return strippedContent.substring(0, maxLength) + "...";
     }
     return strippedContent;
   };
 
   const handleView = (event) => {
     navigate("/events/view", { state: { action: "view", data: event } });
-  }
+  };
 
   return (
     <div className="container-fluid">
@@ -54,7 +56,11 @@ const AdminEvents = () => {
               <div className="card-header">
                 <b>List of Events</b>
                 <span className="float:right">
-                  <Link to={"/dashboard/events/manage"} className="btn btn-primary btn-block btn-sm col-sm-2 float-right" id="new_event">
+                  <Link
+                    to={"/dashboard/reports/manage"}
+                    className="btn btn-primary btn-block btn-sm col-sm-2 float-right"
+                    id="new_event"
+                  >
                     <FaPlus /> New Entry
                   </Link>
                 </span>
@@ -73,25 +79,50 @@ const AdminEvents = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {events.length > 0 ? <>
-                        {events.map((event, index) => (
-                          <tr key={index}>
-                            <td className="text-center">{index + 1}</td>
-                            <td>{formatDate(event.schedule)}</td>
-                            <td>{event.title}</td>
-                            <td>{CutContent(event.content, 50)}</td>
-                            <td>{event.commits_count}</td>
-                            <td className="text-center justify-content-center border-0 d-flex gap-1">
-                              <button onClick={() => handleView(event)} className="btn btn-sm btn-outline-primary edit_career" >View</button>
-                              <Link to="/dashboard/events/manage" state={{ status: "edit", data: event }} className="btn btn-sm btn-outline-primary" type="button">Edit</Link>
-                              <button onClick={() => delEvent(event.id)} className="btn btn-sm btn-outline-danger" type="button">Delete</button>
+                      {events.length > 0 ? (
+                        <>
+                          {events.map((event, index) => (
+                            <tr key={index}>
+                              <td className="text-center">{index + 1}</td>
+                              <td>{formatDate(event.schedule)}</td>
+                              <td>{event.title}</td>
+                              <td>{CutContent(event.content, 50)}</td>
+                              <td>{event.commits_count}</td>
+                              <td className="text-center justify-content-center border-0 d-flex gap-1">
+                                <button
+                                  onClick={() => handleView(event)}
+                                  className="btn btn-sm btn-outline-primary edit_career"
+                                >
+                                  View
+                                </button>
+                                <Link
+                                  to="/dashboard/events/manage"
+                                  state={{ status: "edit", data: event }}
+                                  className="btn btn-sm btn-outline-primary"
+                                  type="button"
+                                >
+                                  Edit
+                                </Link>
+                                <button
+                                  onClick={() => delEvent(event.id)}
+                                  className="btn btn-sm btn-outline-danger"
+                                  type="button"
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          <tr>
+                            <td colSpan={6} className="text-center">
+                              No Event Available
                             </td>
                           </tr>
-                        ))}</> : <>
-                        <tr>
-                          <td colSpan={6} className="text-center">No Event Available</td>
-                        </tr>
-                      </>}
+                        </>
+                      )}
                     </tbody>
                   </table>
                 </div>
