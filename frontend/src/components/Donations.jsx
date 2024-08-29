@@ -5,6 +5,7 @@ import ViewDonations from '../admin/view/ViewDonations';
 import ManageJobs from '../admin/save/ManageJobs';
 import { useAuth } from '../AuthContext';
 import ManageDonations from '../admin/save/ManageDonations';
+import Confetti from 'react-confetti';
 
 
 const Donations = () => {
@@ -15,6 +16,7 @@ const Donations = () => {
     const [selectedDonation, setSelectedDonation] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [handleAdd, setHandleAdd] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     const openModal = (job) => {
         setSelectedDonation(job);
@@ -24,6 +26,13 @@ const Donations = () => {
     const closeModal = () => {
         setSelectedDonation(null);
         setIsModalOpen(false);
+    };
+
+    const triggerConfetti = () => {
+        setShowConfetti(true);
+        setTimeout(() => {
+            setShowConfetti(false);
+        }, 5000);
     };
 
     useEffect(() => {
@@ -54,6 +63,15 @@ const Donations = () => {
 
     return (
         <>
+            { showConfetti && 
+                <Confetti
+                size={20}
+                shape="circle"
+                colors={['#f44336', '#9c27b0', '#3f51b5']}
+                wind={0}
+                gravity={0.3}
+                /> 
+            }
             <header className="masthead">
                 <div className="container-fluid h-100">
                     <div className="row h-100 align-items-center justify-content-center text-center">
@@ -126,7 +144,7 @@ const Donations = () => {
                     </div>
                 </>)}
             {isModalOpen && (
-                selectedDonation && <ViewDonations donation={selectedDonation} closeModal={closeModal} />
+                selectedDonation && <ViewDonations donation={selectedDonation} closeModal={closeModal} triggerConfetti={triggerConfetti} />
             )}
         </>
     )
