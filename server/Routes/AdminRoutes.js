@@ -46,6 +46,73 @@ const galleryStorage = multer.diskStorage({
 });
 const galleryUpload = multer({ storage: galleryStorage });
 
+router.post("/additem", (req, res) => {
+  const { item, quantity, cost, imgurl, im_id } = req.body;
+  console.log(req.body);
+
+  const sql = `INSERT INTO inventory (item, quantity, cost, imgurl, im_id) VALUES (?, ?, ?, ?, ?)`;
+
+  con.query(sql, [item, quantity, cost, imgurl, im_id], (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ message: "Database Error" });
+    }
+
+    res.status(201).json({ message: "Item added successfully" });
+  });
+});
+
+router.post("/requestitem", (req, res) => {
+  console.log(req.body);
+  const { itemid, quantity, pmid, item } = req.body;
+
+  if (!itemid || !quantity || !pmid || !item) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  console.log(req.body);
+
+  // Insert the request into the requests table
+  const sql =
+    "INSERT INTO requests (itemid, quantity, pmid, item) VALUES (?, ?, ?, ?)";
+  const values = [itemid, quantity, pmid, item];
+
+  con.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ message: "Database Error" });
+    }
+
+    res.status(200).json({ message: "Item request successfully created" });
+  });
+});
+
+router.get("/getrequests", (req, res) => {
+  const sql = "SELECT * FROM requests";
+
+  con.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ message: "Database Error" });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
+router.get("/getitems", (req, res) => {
+  const sql = "SELECT * FROM inventory";
+
+  con.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ message: "Database Error" });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
 router.post("/send_email_with_pdf", (req, res) => {
   const { to, subject, text, filename } = req.body;
   const mailOptions = {
@@ -126,6 +193,74 @@ router.post("/login", (req, res) => {
     } else {
       return res.json({ loginStatus: false, Error: "Wrong Email or Password" });
     }
+  });
+});
+
+router.put("/approverequest/:id", (req, res) => {
+  const requestId = req.params.id;
+  console.log(requestId);
+  // Step 1: Fetch the request details
+  const getRequestQuery = "SELECT * FROM requests WHERE id = ?";
+  con.query(getRequestQuery, [requestId], (err, requestResult) => {
+    if (err) {
+      console.error("Error fetching request:", err);
+      return res.status(500).json({ message: "Database Error" });
+    }
+
+    if (requestResult.length === 0) {
+      return res.status(404).json({ message: "Request not found" });
+    }
+
+    const { itemid, quantity } = requestResult[0];
+    console.log(itemid, quantity);
+
+    // Step 2: Fetch the inventory item
+    const getItemQuery = "SELECT * FROM inventory WHERE id = ?";
+    con.query(getItemQuery, [itemid], (err, inventoryResult) => {
+      if (err) {
+        console.error("Error fetching inventory item:", err);
+        return res.status(500).json({ message: "Database Error" });
+      }
+
+      if (inventoryResult.length === 0) {
+        return res.status(404).json({ message: "Inventory item not found" });
+      }
+
+      const currentQuantity = inventoryResult[0].quantity;
+      console.log(currentQuantity);
+
+      //Step 3: Check if there's enough quantity in inventory
+      if (currentQuantity < quantity) {
+        return res
+          .status(400)
+          .json({ message: "Not enough quantity in inventory" });
+      }
+
+      // Step 4: Deduct the quantity from the inventory
+      const newQuantity = currentQuantity - quantity;
+      const updateInventoryQuery =
+        "UPDATE inventory SET quantity = ? WHERE id = ?";
+      con.query(updateInventoryQuery, [newQuantity, itemid], (err) => {
+        if (err) {
+          console.error("Error updating inventory:", err);
+          return res.status(500).json({ message: "Database Error" });
+        }
+
+        // Step 5: Mark the request as approved and delete it
+
+        const deleteRequestQuery = "DELETE FROM requests WHERE id = ?";
+        con.query(deleteRequestQuery, [requestId], (err) => {
+          if (err) {
+            console.error("Error deleting request:", err);
+            return res.status(500).json({ message: "Database Error" });
+          }
+
+          res.status(200).json({
+            message: "Request approved, inventory updated, and request deleted",
+          });
+        });
+      });
+    });
   });
 });
 
