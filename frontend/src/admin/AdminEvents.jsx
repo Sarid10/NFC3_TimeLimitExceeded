@@ -10,7 +10,7 @@ const AdminEvents = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/auth/events")
+      .get("http://localhost:3000/auth/reports")
       .then((res) => setEvents(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -54,7 +54,7 @@ const AdminEvents = () => {
           <div className="col-md-12">
             <div className="card">
               <div className="card-header">
-                <b>List of Events</b>
+                <b>List of Reports</b>
                 <span className="float:right">
                   <Link
                     to={"/dashboard/reports/manage"}
@@ -71,10 +71,10 @@ const AdminEvents = () => {
                     <thead>
                       <tr>
                         <th className="text-center">#</th>
-                        <th className="">Schedule</th>
                         <th className="">Title</th>
                         <th className="">Description</th>
-                        <th className="">Commited To Participate</th>
+                        <th className="">No. of Items</th>
+                        <th className="">Total Cost</th>
                         <th className="text-center">Action</th>
                       </tr>
                     </thead>
@@ -84,18 +84,19 @@ const AdminEvents = () => {
                           {events.map((event, index) => (
                             <tr key={index}>
                               <td className="text-center">{index + 1}</td>
-                              <td>{formatDate(event.schedule)}</td>
-                              <td>{event.title}</td>
-                              <td>{CutContent(event.content, 50)}</td>
-                              <td>{event.commits_count}</td>
+                              <td>{CutContent(event.title)}</td>
+                              <td>{CutContent(event.description, 50)}</td>
+                              <td>{event.number_of_items}</td>
+                              <td>{event.total_cost}</td>
                               <td className="text-center justify-content-center border-0 d-flex gap-1">
                                 <button
                                   onClick={() => handleView(event)}
                                   className="btn btn-sm btn-outline-primary edit_career"
+                                  disabled
                                 >
-                                  View
+                                  Sent to Admin
                                 </button>
-                                <Link
+                                {/* <Link
                                   to="/dashboard/events/manage"
                                   state={{ status: "edit", data: event }}
                                   className="btn btn-sm btn-outline-primary"
@@ -109,7 +110,7 @@ const AdminEvents = () => {
                                   type="button"
                                 >
                                   Delete
-                                </button>
+                                </button> */}
                               </td>
                             </tr>
                           ))}

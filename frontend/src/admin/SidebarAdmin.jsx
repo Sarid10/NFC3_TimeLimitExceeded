@@ -43,6 +43,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
+            className={`nav-link ${isActive("/dashboard/receipt")}`}
+            to="/dashboard/receipt"
+          >
+            <FaImage />
+            <span className="ms-1">Reports</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
             className={`nav-link ${isActive("/dashboard/projects")}`}
             to={"/dashboard/projects"}
           >
@@ -76,6 +85,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           >
             <RiMoneyDollarBoxFill />
             <span className="ms-1">Donations</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/inventory")}`}
+            to="/dashboard/inventory"
+          >
+            <FaImage />
+            <span className="ms-1">Inventory</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">

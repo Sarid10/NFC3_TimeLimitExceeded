@@ -48,6 +48,11 @@ import SmallDonatePage from "./components/SmallDonate";
 import OrganizationForm from "./components/OrganizationForm";
 import PMReport from "./PM/PMReport";
 import PMlist from "./PM/PMList";
+import AddItem from "./IM/AddItem";
+import Inventory from "./IM/Inventory";
+import Requests from "./IM/Requests";
+import ReportTemplate from '../src/admin/report/ReportTemplate';
+import ReportRecieved from "./admin/ReportRecieved";
 
 function App() {
   return (
@@ -92,18 +97,23 @@ function AppRouter() {
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
             <Route path="/dashboard/settings" element={<AdminSettings />} />
+            <Route path="/dashboard/receipt" element={<ReportRecieved />} />
             <Route path="/dashboard/reports" element={<AdminEvents />} />
             <Route path="/dashboard/forum" element={<AdminForum />} />
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
+            <Route path="/dashboard/add" element={<AddItem />} />
+            <Route path="/dashboard/inventory" element={<Inventory />} />
             {/* <Route path="/dashboard/reports" element={<PMlist />} /> */}
             <Route path="/dashboard/donations" element={<AdminDonations />} />
+            <Route path="/dashboard/requests" element={<Requests />} />
             <Route
               path="/dashboard/donations/:id"
               element={<DonationDetail />}
             />
             <Route path="/dashboard/jobs/manage" element={<ManageJobs />} />
             <Route path="/dashboard/reports/manage " element={<PMReport />} />
+            <Route path="/dashboard/reports/sample" element={<ReportTemplate />} />
             <Route
               path="/dashboard/donations/manage"
               element={<ManageDonations />}
