@@ -9,6 +9,7 @@ import { useTheme } from '../ThemeContext'
 import carousel1 from '../assets/img/ngo_1.jpg'
 import carousel2 from '../assets/img/ngo_2.jpg'
 import carousel3 from '../assets/img/ngo_3.jpg'
+import carousel4 from '../assets/img/ngo_4.jpg'
 import tata from '../assets/img/tata.jpeg'
 import jpmc from '../assets/img/jpmc.jpg'
 import hdfc from '../assets/img/hdfc_bank.jpg'
@@ -83,20 +84,29 @@ const Home = () => {
         pauseOnFocusLoss={false}
       />
 
-      {/* Carousel Section */}
-      <section className="carousel-section">
+      
+      <section className="carousel-section" style={{marginTop:"5rem"}}>
         <Slider {...sliderSettings}>
           <div>
             <img src={carousel1} alt="Event 1" />
           </div>
           <div>
-            <img src={carousel2} alt="Event 2" />
+            <img src={carousel4} alt="Event 2" />
           </div>
           <div>
             <img src={carousel3} alt="Event 3" />
           </div>
         </Slider>
       </section>
+
+      <section className="tagline-section text-center my-4">
+  <h2 className="tagline" style={{ fontSize: '1.5rem', color: '#555' }}>
+    "Empowering Communities, One Step at a Time"
+  </h2>
+  <p style={{ fontSize: '1.2rem', color: '#777' }}>
+    Join us in making a difference. Your support helps us bring hope and change to those in need.
+  </p>
+</section>
 
       <section className={`page-section bg-${theme}`} id="donors">
         <div className="container">
@@ -108,7 +118,7 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-lg-3 col-sm-6 mb-4">
-              <div className="card h-100 donor-card">
+              <div className="card h-100 donor-card" style={{padding:"20px"}}>
                 <div className="card-body text-center">
                   <img src={tata} alt="Tata" className="img-fluid mb-3" />
                 </div>
@@ -123,12 +133,12 @@ const Home = () => {
                     display: 'block',
                   }}
                 >
-                  ₹63 Lakhs
+                  ₹1.5 Lakhs
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
-              <div className="card h-100 donor-card">
+              <div className="card h-100 donor-card" style={{padding:"20px"}}>
                 <div className="card-body text-center">
                   <img src={hdfc} alt="HDFC" className="img-fluid mb-3" />
                 </div>
@@ -143,14 +153,14 @@ const Home = () => {
                     display: 'block',
                   }}
                 >
-                  ₹51 Lakhs
+                  ₹5 Lakhs
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
-              <div className="card h-100 donor-card">
+              <div className="card h-100 donor-card" style={{padding:"20px"}}>
                 <div className="card-body text-center">
-                  <img src={jpmc} alt="JP Morgan" className="img-fluid mb-3" />
+                  <img src={jpmc} alt="JP Morgan" className="img-fluid mb-3"  />
                 </div>
                 <b>Amount Donated</b>
                 <p
@@ -163,12 +173,12 @@ const Home = () => {
                     display: 'block',
                   }}
                 >
-                  ₹42 Lakhs
+                  ₹2 Lakhs
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 mb-4">
-              <div className="card h-100 donor-card">
+              <div className="card h-100 donor-card" style={{padding:"20px"}}>
                 <div className="card-body text-center">
                   <img
                     src={reliance}
@@ -187,7 +197,7 @@ const Home = () => {
                     display: 'block',
                   }}
                 >
-                  ₹30 Lakhs
+                  ₹3 Lakhs
                 </p>
               </div>
             </div>
