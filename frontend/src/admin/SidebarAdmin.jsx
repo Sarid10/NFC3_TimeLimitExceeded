@@ -107,6 +107,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
+            className={`nav-link ${isActive("/dashboard/send")}`}
+            to={"/dashboard/send"}
+          >
+            <RiMoneyDollarBoxFill />
+            <span className="ms-1">Send Funds</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
             className={`nav-link ${isActive("/dashboard/inventory")}`}
             to="/dashboard/inventory"
           >

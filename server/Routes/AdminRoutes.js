@@ -549,6 +549,32 @@ router.post("/adddonor", (req, res) => {
   });
 });
 
+router.post("/send-funds", (req, res) => {
+  const { imid, amount } = req.body;
+  console.log(req.body);
+  // Simple validation to check if the amount is valid
+  if (!amount || amount <= 0) {
+    return res.status(400).json({
+      message: "Invalid amount. Please enter a positive value.",
+    });
+  }
+
+  // Mock logic for sending funds (this is where you'd integrate payment processing)
+  const query = "INSERT INTO funds (amount, imid) VALUES (?, ?)";
+  db.query(query, [amount, imid], (err, result) => {
+    if (err) {
+      console.error("Error inserting data into funds table:", err);
+      return res.status(500).json({
+        message: "Error processing the transaction. Please try again.",
+      });
+    }
+    return res.json({
+      message:
+        "Funds sent successfully. Your transaction ID is" + result.insertId,
+    });
+  });
+});
+
 router.put("/updatedonation", (req, res) => {
   const { id, amount } = req.body;
   if (id) {
