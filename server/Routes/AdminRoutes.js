@@ -619,6 +619,16 @@ router.get("/courses", (req, res) => {
   });
 });
 
+router.get("/notifications", (req, res) => {
+  const sql = "SELECT * FROM notifications";
+  con.query(sql, (err, result) => {
+    if (err) {
+      return res.json({ Error: "Query Error" });
+    }
+    return res.json(result);
+  });
+});
+
 router.delete("/courses/:id", (req, res) => {
   const sql = "DELETE FROM courses WHERE id= ?";
 
@@ -1103,6 +1113,27 @@ router.get("/alumni", (req, res) => {
       return res.json({ message: "No Data Available" });
     }
   });
+});
+
+router.post("/notifications", async (req, res) => {
+  const { orgName, address, email, phone, category, description } = req.body;
+  console.log(req.body);
+  const sql =
+    "INSERT INTO notifications (org_name, address, email,phone,category,description) VALUES (?,?,?,?,?,?)";
+  con.query(
+    sql,
+    [orgName, address, email, phone, category, description],
+    (err, result) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        return res.status(500).json({ error: "Database Error" });
+      }
+      return res.json({
+        message: "New notification added successfully",
+        jobId: result.insertId,
+      });
+    }
+  );
 });
 
 router.delete("/alumni/:id", (req, res) => {

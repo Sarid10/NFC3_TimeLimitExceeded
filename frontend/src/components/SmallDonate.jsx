@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const benefits = [
+  "Your contribution helps support meaningful causes.",
+  "Receive tax benefits for your generous donation.",
+  "Make a positive impact on the lives of those in need.",
+  "Receive regular updates on how your donation is used.",
+  "Be recognized as a valued supporter of our mission.",
+];
 
 const SmallDonatePage = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +16,13 @@ const SmallDonatePage = () => {
     amount: "",
   });
   const [amount, setAmount] = useState(1);
+  const [randomBenefit, setRandomBenefit] = useState("");
+
+  useEffect(() => {
+    // Pick a random benefit when the component mounts
+    const randomIndex = Math.floor(Math.random() * benefits.length);
+    setRandomBenefit(benefits[randomIndex]);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -70,110 +85,178 @@ const SmallDonatePage = () => {
   return (
     <div
       style={{
-        maxWidth: "600px",
+        display: "flex",
+        maxWidth: "1200px",
         margin: "0 auto",
         padding: "20px",
         backgroundColor: "#f9f9f9",
         borderRadius: "8px",
-        paddingTop: "120px", // Increased padding-top to bring the content below the header
       }}
     >
-      <h2 style={{ textAlign: "center", color: "#2C3E50" }}>Donate</h2>
-
-      <div style={{ marginBottom: "15px" }}>
-        <label
-          style={{ display: "block", marginBottom: "5px", color: "#2C3E50" }}
-        >
-          Name:
-        </label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label
-          style={{ display: "block", marginBottom: "5px", color: "#2C3E50" }}
-        >
-          Email:
-        </label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label
-          style={{ display: "block", marginBottom: "5px", color: "#2C3E50" }}
-        >
-          Phone Number:
-        </label>
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label
-          style={{ display: "block", marginBottom: "5px", color: "#2C3E50" }}
-        >
-          Amount:
-        </label>
-        <input
-          type="number"
-          name="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
-      <button
+      <div
         style={{
-          width: "100%",
-          padding: "10px",
-          backgroundColor: "#3498DB",
-          color: "#fff",
-          borderRadius: "5px",
-          border: "none",
-          cursor: "pointer",
+          flex: 2,
+          padding: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         }}
-        onClick={handlePay}
       >
-        Donate Now
-      </button>
+        <h2 style={{ textAlign: "center", color: "#2C3E50" }}>Donate</h2>
+
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: "15px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "5px",
+                color: "#2C3E50",
+              }}
+            >
+              Name:
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "5px",
+                color: "#2C3E50",
+              }}
+            >
+              Email:
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "5px",
+                color: "#2C3E50",
+              }}
+            >
+              Phone Number:
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "5px",
+                color: "#2C3E50",
+              }}
+            >
+              Amount:
+            </label>
+            <input
+              type="number"
+              name="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <button
+            type="button"
+            style={{
+              width: "100%",
+              padding: "10px",
+              backgroundColor: "#3498DB",
+              color: "#fff",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={handlePay}
+          >
+            Donate Now
+          </button>
+        </form>
+      </div>
+
+      <div
+        style={{
+          flex: 1,
+          marginLeft: "20px",
+          padding: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h3 style={{ color: "#2C3E50" }}>Benefits of Donating:</h3>
+        <div
+          style={{
+            padding: "20px",
+            backgroundColor: "#ECF0F1",
+            borderRadius: "8px",
+            marginBottom: "20px",
+            fontSize: "24px",
+            fontWeight: "bold",
+            color: "#E74C3C",
+          }}
+        >
+          {randomBenefit}
+        </div>
+        <ul
+          style={{
+            listStyleType: "disc",
+            paddingLeft: "20px",
+            color: "#34495E",
+          }}
+        >
+          {benefits
+            .filter((b) => b !== randomBenefit)
+            .map((benefit, index) => (
+              <li key={index}>{benefit}</li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };

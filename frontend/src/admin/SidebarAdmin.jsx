@@ -89,6 +89,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
+            className={`nav-link ${isActive("/dashboard/notifications")}`}
+            to={"/dashboard/notifications"}
+          >
+            <RiMoneyDollarBoxFill />
+            <span className="ms-1">Notifications</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
             className={`nav-link ${isActive("/dashboard/inventory")}`}
             to="/dashboard/inventory"
           >
@@ -96,7 +105,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Inventory</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/events")}`}
             to={"/dashboard/events"}
@@ -104,7 +113,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <IoCalendar />
             <span className="ms-1">Events</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/forum")}`}
