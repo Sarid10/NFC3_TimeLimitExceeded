@@ -179,7 +179,7 @@ const Header = () => {
                         </Link>
                       </li>
                     )}
-                    {isDonor && isVolunteer && (
+                    {(isDonor || isVolunteer) && (
                       <li>
                         <Link
                           onClick={toggleMenu}

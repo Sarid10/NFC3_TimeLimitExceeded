@@ -687,19 +687,30 @@ router.get("/projects", (req, res) => {
 });
 
 router.post("/add_report", (req, res) => {
-  const { title, description, number_of_items, total_cost, html_string, pm_id } = req.body;
+  const {
+    title,
+    description,
+    number_of_items,
+    total_cost,
+    html_string,
+    pm_id,
+  } = req.body;
   const sql =
     "INSERT INTO reports (title, description, number_of_items, total_cost, html_string, pm_id) VALUES (?, ?, ?, ?, ?, ?)";
-  con.query(sql, [title, description, number_of_items, total_cost, html_string, pm_id], (err, result) => {
-    if (err) {
-      console.error("Error executing SQL query:", err);
-      return res.status(500).json({ error: "Database Error" });
+  con.query(
+    sql,
+    [title, description, number_of_items, total_cost, html_string, pm_id],
+    (err, result) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        return res.status(500).json({ error: "Database Error" });
+      }
+      return res.json({
+        message: "Insert New Report successfully",
+        jobId: result.insertId,
+      });
     }
-    return res.json({
-      message: "Insert New Report successfully",
-      jobId: result.insertId,
-    });
-  });
+  );
 });
 
 router.get("/projects/:projectManagerId", (req, res) => {
@@ -764,8 +775,7 @@ router.get("/events", (req, res) => {
 });
 
 router.get("/reports", (req, res) => {
-  const sql =
-    "SELECT * from reports";
+  const sql = "SELECT * from reports";
 
   con.query(sql, (err, result) => {
     if (err) {
