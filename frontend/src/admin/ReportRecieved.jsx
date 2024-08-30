@@ -64,7 +64,7 @@ const ReportRecieved = () => {
             attachments: [
               {
                 filename: 'Donation_report.pdf',
-                path: 'Donation_report.pdf',
+                path: response.data.filePath,
                 contentType: 'application/pdf'
               },
             ],

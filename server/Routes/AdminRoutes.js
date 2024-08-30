@@ -137,7 +137,8 @@ router.get("/getitems", (req, res) => {
 
 router.post("/send_email_with_pdf", (req, res) => {
   const { to, subject, text, filename } = req.body;
-  console.log(__dirname)
+  console.log(__dirname);
+  console.log(path.join(__dirname, `../../reports/${filename}`));
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to,
@@ -145,8 +146,8 @@ router.post("/send_email_with_pdf", (req, res) => {
     text,
     attachments: [
       {
-        filename,
-        path: path.join(__dirname, `../../reports/${filename}`),
+        filename: "Donation_report.pdf",
+        path: path.join(__dirname, `../../reports/Donation_report.pdf`),
         contentType: "application/pdf",
       },
     ],
