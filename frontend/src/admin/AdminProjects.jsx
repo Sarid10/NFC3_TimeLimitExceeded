@@ -220,7 +220,7 @@ const AdminProjects = () => {
                         <td
                           style={{ wordWrap: "break-word", maxWidth: "150px" }}
                         >
-                          {p.url_image}
+                          <img src={p.url_image} width="100" height={100} />
                         </td>
                         <td>{p.number_of_volunteers}</td>
                         <td>{p.project_manager_id}</td>

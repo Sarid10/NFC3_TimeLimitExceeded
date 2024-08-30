@@ -416,7 +416,9 @@ router.get("/counts", (req, res) => {
             (SELECT COUNT(*) FROM events WHERE schedule >= CURDATE()) AS upeventCount,
             (SELECT COUNT(*) FROM alumnus_bio) AS alumniCount,
             (SELECT COUNT(*) FROM courses) AS CourseCount,
-            (SELECT SUM(amount_collected) FROM donations) AS TotalDonations;
+            (SELECT SUM(amount_collected) FROM donations) AS TotalDonations,
+            (SELECT COUNT(*) FROM users WHERE type = 'volunteer') AS volunteerCount,
+            (SELECT COUNT(*) FROM users WHERE type = 'project_manager') AS projectManagers;
     `;
 
   con.query(sql, (err, result) => {
@@ -433,6 +435,8 @@ router.get("/counts", (req, res) => {
       alumni: result[0].alumniCount,
       donate: result[0].TotalDonations,
       course: result[0].CourseCount,
+      volunteer: result[0].volunteerCount,
+      projectManager: result[0].projectManagers,
     };
 
     res.json(counts);
@@ -634,6 +638,16 @@ router.delete("/jobs/:id", (req, res) => {
 });
 router.get("/courses", (req, res) => {
   const sql = "SELECT * FROM courses";
+  con.query(sql, (err, result) => {
+    if (err) {
+      return res.json({ Error: "Query Error" });
+    }
+    return res.json(result);
+  });
+});
+
+router.get("/notifications", (req, res) => {
+  const sql = "SELECT * FROM notifications";
   con.query(sql, (err, result) => {
     if (err) {
       return res.json({ Error: "Query Error" });
@@ -1126,6 +1140,27 @@ router.get("/alumni", (req, res) => {
       return res.json({ message: "No Data Available" });
     }
   });
+});
+
+router.post("/notifications", async (req, res) => {
+  const { orgName, address, email, phone, category, description } = req.body;
+  console.log(req.body);
+  const sql =
+    "INSERT INTO notifications (org_name, address, email,phone,category,description) VALUES (?,?,?,?,?,?)";
+  con.query(
+    sql,
+    [orgName, address, email, phone, category, description],
+    (err, result) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        return res.status(500).json({ error: "Database Error" });
+      }
+      return res.json({
+        message: "New notification added successfully",
+        jobId: result.insertId,
+      });
+    }
+  );
 });
 
 router.delete("/alumni/:id", (req, res) => {

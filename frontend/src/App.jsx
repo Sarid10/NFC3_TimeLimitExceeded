@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import AlumniList from "./components/AlumniList";
 import Gallery from "./components/Gallery";
 import Careers from "./components/Careers";
 import Forum from "./components/Forum";
@@ -51,8 +50,9 @@ import PMlist from "./PM/PMList";
 import AddItem from "./IM/AddItem";
 import Inventory from "./IM/Inventory";
 import Requests from "./IM/Requests";
-import ReportTemplate from '../src/admin/report/ReportTemplate';
+import ReportTemplate from "../src/admin/report/ReportTemplate";
 import ReportRecieved from "./admin/ReportRecieved";
+import Notify from "./admin/Notify";
 
 function App() {
   return (
@@ -78,7 +78,6 @@ function AppRouter() {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path="/alumni" element={<AlumniList />} />
         <Route path="/smalldonate" element={<SmallDonatePage />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/orgform" element={<OrganizationForm />} />
@@ -113,7 +112,10 @@ function AppRouter() {
             />
             <Route path="/dashboard/jobs/manage" element={<ManageJobs />} />
             <Route path="/dashboard/reports/manage " element={<PMReport />} />
-            <Route path="/dashboard/reports/sample" element={<ReportTemplate />} />
+            <Route
+              path="/dashboard/reports/sample"
+              element={<ReportTemplate />}
+            />
             <Route
               path="/dashboard/donations/manage"
               element={<ManageDonations />}
@@ -123,6 +125,7 @@ function AppRouter() {
               element={<ManageEvents />}
             />
             <Route path="/dashboard/forum/manage" element={<ManageForum />} />
+            <Route path="/dashboard/notifications" element={<Notify />} />
             <Route path="/dashboard/users/manage" element={<ManageUser />} />
             <Route path="/dashboard/alumni/view" element={<ViewAlumni />} />
             <Route path="/dashboard/projects/:id" element={<ViewProject />} />

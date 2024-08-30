@@ -63,7 +63,7 @@ button.bg-dark:focus {
 }
 
 header.masthead {
-    /* margin-top: 6rem; */
+    margin-top: 5rem;
     padding-top: 10rem;
     padding-bottom: calc(10rem - 4.5rem);
     background: url("https://csrbox.org/company/proj_img/1555392558Default_headres.png");
