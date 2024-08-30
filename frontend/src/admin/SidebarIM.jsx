@@ -96,15 +96,7 @@ const SidebarIM = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Donations</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/requests")}`}
-            to={"/dashboard/requests"}
-          >
-            <RiMoneyDollarBoxFill />
-            <span className="ms-1">Requests</span>
-          </Link>
-        </li>
+
         {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/events")}`}
