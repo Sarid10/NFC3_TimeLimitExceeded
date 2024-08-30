@@ -413,7 +413,7 @@ router.get("/counts", (req, res) => {
       donate: result[0].TotalDonations,
       course: result[0].CourseCount,
       volunteer: result[0].volunteerCount,
-      projectManager:result[0].projectManagers,
+      projectManager: result[0].projectManagers,
     };
 
     res.json(counts);

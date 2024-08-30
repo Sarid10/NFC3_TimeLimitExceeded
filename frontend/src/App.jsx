@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import AlumniList from "./components/AlumniList";
 import Gallery from "./components/Gallery";
 import Careers from "./components/Careers";
 import Forum from "./components/Forum";
@@ -79,7 +78,6 @@ function AppRouter() {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path="/alumni" element={<AlumniList />} />
         <Route path="/smalldonate" element={<SmallDonatePage />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/orgform" element={<OrganizationForm />} />
