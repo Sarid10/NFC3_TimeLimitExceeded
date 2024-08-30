@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import Razorpay from "razorpay";
-import { adminRouter } from "./Routes/AdminRoutes.js";
+import { adminRouter } from "./Routes/AdminRoutes.js"; 
 import dotenv from "dotenv";
 dotenv.config();
 dotenv.config();

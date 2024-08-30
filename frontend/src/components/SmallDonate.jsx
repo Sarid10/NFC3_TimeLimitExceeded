@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import Confetti from 'react-confetti'
+import axios from "axios";
 
 const SmallDonatePage = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +11,7 @@ const SmallDonatePage = () => {
     amount: "",
   });
   const [amount, setAmount] = useState(1);
+  const [showConfetti, setShowConfetti] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -15,6 +19,13 @@ const SmallDonatePage = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const triggerConfetti = () => {
+    setShowConfetti(true)
+    setTimeout(() => {
+      setShowConfetti(false)
+    }, 5000)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +46,7 @@ const SmallDonatePage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount,
+        amount: amount * 100,
         currency,
       }),
     });
@@ -52,11 +63,7 @@ const SmallDonatePage = () => {
         "https://vjti.ac.in/wp-content/uploads/oldupload/cropped-New-VJTI-Logo_1-1-60x87.jpg",
       order_id: order.id,
       handler: async function (res) {
-        closeModal();
         triggerConfetti();
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
       },
     };
     var rzp1 = new Razorpay(option);
@@ -65,6 +72,22 @@ const SmallDonatePage = () => {
     });
     rzp1.open();
     e.preventDefault();
+
+    const mailData = {
+      from: "timelimitexceeded4@gmail.com",
+      to: formData.email,
+      subject: "Thanks For Donation!",
+      text: `Dear ${formData.name}, Thanks for your generous donation of ₹${amount}`
+    }
+    console.log(mailData);
+
+    await axios
+      .post("http://localhost:3000/auth/send_email", mailData)
+      .then((res) => {
+        console.log("Mail sent")
+        toast.success(res.data.message);
+      });
+
   };
 
   return (
@@ -78,6 +101,16 @@ const SmallDonatePage = () => {
         paddingTop: "120px", // Increased padding-top to bring the content below the header
       }}
     >
+      <ToastContainer position="top-center" />
+      {showConfetti && (
+        <Confetti
+          size={20}
+          shape="circle"
+          colors={['#f44336', '#9c27b0', '#3f51b5']}
+          wind={0}
+          gravity={0.3}
+        />
+      )}
       <h2 style={{ textAlign: "center", color: "#2C3E50" }}>Donate</h2>
 
       <div style={{ marginBottom: "15px" }}>

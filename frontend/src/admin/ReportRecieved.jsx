@@ -9,10 +9,9 @@ const ReportRecieved = () => {
   const [modalContent, setModalContent] = useState('');
 
   useEffect(() => {
-    // Fetch reports from the API
     const fetchReports = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/auth/reports'); // Update the URL accordingly
+        const response = await axios.get('http://localhost:3000/auth/reports');
         setReports(response.data);
       } catch (error) {
         console.error('Error fetching reports:', error);
@@ -34,6 +33,7 @@ const ReportRecieved = () => {
   };
 
   const handleView = (html) => {
+    // console.log(html);
     setModalContent(html);
     setShowModal(true);
   };
@@ -42,6 +42,45 @@ const ReportRecieved = () => {
     setShowModal(false);
     setModalContent('');
   };
+
+  const sendEmail = async(e) => {
+    e.preventDefault();
+    const escapedHtml = modalContent.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    console.log(escapedHtml);
+    // const jsonData = {
+    //     htmlContent: escapedHtml
+    // };
+    try {
+        const response = await axios.post('http://localhost:3000/auth/generate_pdf', {
+          htmlContent: escapedHtml,
+        });
+        console.log(response);
+        if (response.data.filePath) {
+          const mailDataWithPdf = {
+            from: "timelimitexceeded4@gmail.com",
+            to: "mhdbhadsorawala@gmail.com",
+            subject: "Your Donation Report is here!",
+            text: `Hey Mohammed, your detailed Donation report is here. Check out how your funds have been utilized!`,
+            attachments: [
+              {
+                filename: 'Donation_report.pdf',
+                path: 'Donation_report.pdf',
+                contentType: 'application/pdf'
+              },
+            ],
+          };
+    
+          await axios.post("http://localhost:3000/auth/send_email_with_pdf", mailDataWithPdf)
+            .then((res) => {
+              console.log("Mail sent");
+              toast.success(res.data.message);
+            });
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+        toast.error('Failed to send email');
+      }
+  }
 
   return (
     <div className="container-fluid">
@@ -86,14 +125,26 @@ const ReportRecieved = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="modal" style={modalStyles.modal}>
-        <div className="modal-content" style={modalStyles.modalContent}>
-          <span className="close" style={modalStyles.close} onClick={handleClose}>
-            &times;
-          </span>
-          <div dangerouslySetInnerHTML={{ __html: modalContent }} />
+        <>
+            <div className="modal" style={modalStyles.modal}>
+            
+            <div className="modal-content" style={modalStyles.modalContent}>
+            
+            <span className="close" style={modalStyles.close} onClick={handleClose}>
+                &times;
+            </span>
+            <div dangerouslySetInnerHTML={{ __html: modalContent }} />
+            <button
+                className="btn btn-primary btn-sm"
+                onClick={sendEmail}
+                >
+                Send Email
+            </button>
+            </div>
         </div>
-      </div>
+
+        
+        </>
       )}
     </div>
   );

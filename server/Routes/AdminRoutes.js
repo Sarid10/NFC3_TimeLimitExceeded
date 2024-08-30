@@ -8,6 +8,8 @@ const router = express.Router();
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
+import puppeteer from 'puppeteer';          
+import fs from 'fs';            
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -45,6 +47,26 @@ const galleryStorage = multer.diskStorage({
   },
 });
 const galleryUpload = multer({ storage: galleryStorage });
+
+router.post('/generate_pdf', async (req, res) => {
+  const { htmlContent } = req.body;
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(htmlContent);
+    const pdfBuffer = await page.pdf({ format: 'A4' });
+
+    await browser.close();
+
+    const filePath = path.join(__dirname, '..', '..', 'reports', 'Donation_report.pdf');
+    fs.writeFileSync(filePath, pdfBuffer);
+
+    res.json({ message: 'PDF Generated', filePath });
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    res.status(500).json({ message: 'Failed to generate PDF' });
+  }
+});
 
 router.post("/additem", (req, res) => {
   const { item, quantity, cost, imgurl, im_id } = req.body;
@@ -115,6 +137,7 @@ router.get("/getitems", (req, res) => {
 
 router.post("/send_email_with_pdf", (req, res) => {
   const { to, subject, text, filename } = req.body;
+  console.log(__dirname)
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to,
