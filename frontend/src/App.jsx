@@ -53,6 +53,7 @@ import Requests from "./IM/Requests";
 import ReportTemplate from "../src/admin/report/ReportTemplate";
 import ReportRecieved from "./admin/ReportRecieved";
 import Notify from "./admin/Notify";
+import SendFunds from "./admin/SendFunds";
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function AppRouter() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<AdminHome />} />
             <Route path="/dashboard/courses" element={<AdminCourses />} />
+
             <Route path="/dashboard/assigned" element={<PMAssigned />} />
             <Route path="/dashboard/projects" element={<AdminProjects />} />
             <Route path="/dashboard/users" element={<AdminUsers />} />
@@ -98,6 +100,7 @@ function AppRouter() {
             <Route path="/dashboard/settings" element={<AdminSettings />} />
             <Route path="/dashboard/receipt" element={<ReportRecieved />} />
             <Route path="/dashboard/reports" element={<AdminEvents />} />
+            <Route path="/dashboard/send" element={<SendFunds />} />
             <Route path="/dashboard/forum" element={<AdminForum />} />
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
