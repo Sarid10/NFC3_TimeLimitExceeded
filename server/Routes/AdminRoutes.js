@@ -393,7 +393,9 @@ router.get("/counts", (req, res) => {
             (SELECT COUNT(*) FROM events WHERE schedule >= CURDATE()) AS upeventCount,
             (SELECT COUNT(*) FROM alumnus_bio) AS alumniCount,
             (SELECT COUNT(*) FROM courses) AS CourseCount,
-            (SELECT SUM(amount_collected) FROM donations) AS TotalDonations;
+            (SELECT SUM(amount_collected) FROM donations) AS TotalDonations,
+            (SELECT COUNT(*) FROM users WHERE type = 'volunteer') AS volunteerCount,
+            (SELECT COUNT(*) FROM users WHERE type = 'project_manager') AS projectManagers;
     `;
 
   con.query(sql, (err, result) => {
@@ -410,6 +412,8 @@ router.get("/counts", (req, res) => {
       alumni: result[0].alumniCount,
       donate: result[0].TotalDonations,
       course: result[0].CourseCount,
+      volunteer: result[0].volunteerCount,
+      projectManager:result[0].projectManagers,
     };
 
     res.json(counts);
