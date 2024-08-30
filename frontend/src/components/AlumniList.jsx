@@ -2,39 +2,33 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import defaultavatar from "../assets/uploads/defaultavatar.jpg";
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-
-const AlumniList = () => {
-    const [alumniList, setAlumniList] = useState([]);
-    const [filteredAlumni, setFilteredAlumnni] = useState([]);
+const DonorList = () => {
+    const [donorList, setDonorList] = useState([]);
+    const [filteredDonors, setFilteredDonors] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         axios.get("http://localhost:3000/auth/unique_donors_list")
             .then((res) => {
-                console.log(res.data);
-                setAlumniList(res.data);
+                setDonorList(res.data);
             })
             .catch((err) => console.log(err));
     }, []);
 
     const handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value);
-    }
-
+    };
 
     useEffect(() => {
-        if (alumniList.length > 0) {
-            const filteredlist = alumniList.filter(list =>
-                list.name.toLowerCase().includes(searchQuery.toLowerCase()) 
-                // || list.course.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                // list.batch.toString().includes(searchQuery)
+        if (donorList.length > 0) {
+            const filteredList = donorList.filter(donor =>
+                donor.name.toLowerCase().includes(searchQuery.toLowerCase())
             );
-            setFilteredAlumnni(filteredlist);
+            setFilteredDonors(filteredList);
         }
-    }, [searchQuery, alumniList]);
+    }, [searchQuery, donorList]);
 
     return (
         <>
@@ -42,113 +36,77 @@ const AlumniList = () => {
                 <div className="container-fluid h-100">
                     <div className="row h-100 align-items-center justify-content-center text-center">
                         <div className="col-lg-8 align-self-end mb-4 page-title">
-                            <h3 className="text-white">Donors List</h3>
+                            <h3 className="text-white" style={{fontWeight:"bold", fontSize:"2.5rem"}}>Our Donors, Our Heroes</h3>
+                            <p className="text-white" style={{fontWeight:"bold", fontSize:"1.2rem", fontStyle:"italic"}}>
+                                "Together, we make a lasting impact. Thank you for your generosity and commitment to our community!"
+                            </p>
                             <hr className="divider my-4" />
                         </div>
                     </div>
                 </div>
             </header>
-            {alumniList.length > 0 && <div className="container mt-4">
-                <div className="card mb-4">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col-md-8">
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text" id="filter-field">
-                                            <FaSearch />
-                                        </span>
+            {donorList.length > 0 && (
+                <div className="container mt-4">
+                    <div className="card mb-4">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <div className="input-group mb-3">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text" id="filter-field">
+                                                <FaSearch />
+                                            </span>
+                                        </div>
+                                        <input
+                                            value={searchQuery} onChange={handleSearchInputChange}
+                                            type="text"
+                                            className="form-control"
+                                            id="filter"
+                                            placeholder="Search by name"
+                                            aria-label="Filter"
+                                            aria-describedby="filter-field"
+                                        />
                                     </div>
-                                    <input
-                                        value={searchQuery} onChange={handleSearchInputChange}
-                                        type="text"
-                                        className="form-control"
-                                        id="filter"
-                                        placeholder="Filter name"
-                                        aria-label="Filter"
-                                        aria-describedby="filter-field"
-                                    />
                                 </div>
-                            </div>
-                            <div className="col-md-4">
-                                <button className="btn btn-primary btn-block" id="search">
-                                    Search
-                                </button>
+                                <div className="col-md-4">
+                                    <button className="btn btn-primary btn-block" id="search">
+                                        Search
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>}
-            <div className="container-fluid mt-3 pt-2">
-                {filteredAlumni.length > 0 ? <>
-                    <div className="row">
-                        {filteredAlumni.map((a, index) => (
-                            <div className="col-md-4 mb-4" key={index}>
-                                <div className="card">
-                                    <center>
-                                        {a.avatar ?
-                                            <img
-                                                src={`http://localhost:3000/${a.avatar}`}
-                                                style={{ objectFit: "cover" }}
-                                                className="card-img-top img-fluid alimg mt-3"
-                                                alt="avatar"
-                                            /> : <>
-                                                <img
-                                                    src={defaultavatar}
-                                                    className="card-img-top img-fluid alimg mt-3"
-                                                    alt="avatar"
-                                                />
-                                            </>}
-                                    </center>
-                                    <div className="card-body">
-                                        <h5 className="card-title text-center pad-zero h3">{a.name} <small>
-                                            <i className={`badge badge-primary ${a.status === 1 ? '' : 'd-none'}`}>
-                                                Verified
-                                            </i>
-                                        </small></h5>
-
-                                        <p className="card-text h5">
-                                            <strong>Email:</strong> {a.email}
-                                        </p>
-                                        <p className="card-text h5">
-                                            <strong>Amount Donated:</strong> {a.total_amount_donated}
-                                        </p>
-                                        {/* {a.batch != "0000" && <p className="card-text h5">
-                                            <strong>Batch:</strong> {a.batch}
-                                        </p>}
-                                        {a.connected_to && <p className="card-text h5">
-                                            <strong>Currently working in/as:</strong> {a.connected_to}
-                                        </p>} */}
-
-                                        <h5 className="card-title text-left pad-zero h3">
-                                            <small>
-                                                {/* <a href={`http://github.com/${a.name}`} target="_blank" style={{ color: "inherit" }}>
-                                                    <i style={{ marginRight: "30px"}}>
-                                                        <FaGithub />
-                                                    </i>
-                                                </a> */}
-                                                <a href={`http://linkedin.com/${a.name}`} target="_blank" style={{ color: "inherit" }}>
-                                                    <i style={{ marginLeft: "30px" }}>
-                                                        <FaLinkedin />
-                                                    </i>
-                                                </a>
-                                            </small>
-                                        </h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            )}
+            <div className="container mt-4">
+                {filteredDonors.length > 0 ? (
+                    <div className="table-responsive" style={{ maxWidth: "800px", margin: "0 auto" }}>
+                        <table className="table table-striped table-light">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Donor Name</th>
+                                    <th scope="col">Amount Donated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredDonors.map((donor, index) => (
+                                    <tr key={index}>
+                                        <td>{donor.name}</td>
+                                        <td>₹{donor.total_amount_donated}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                </> : <>
+                ) : (
                     <div className="d-flex flex-column justify-content-center align-items-center">
-                        <p >{searchQuery}</p>
-                        <h4 className='text-info-emphasis'>No Data Available</h4>
+                        <h4 className="text-info-emphasis">No Donors Found</h4>
+                        <p className="text-muted">Try adjusting your search to find donors.</p>
                     </div>
-                </>}
+                )}
             </div>
         </>
     );
 };
 
-export default AlumniList;
+export default DonorList;
